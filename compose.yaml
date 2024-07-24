@@ -1,0 +1,29 @@
+services:
+  web-fithelp:
+    build: .
+    container_name: web-fithelp
+    volumes:
+      - ./:/var/www/html
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - "8001:80"
+
+  database:
+      image: mysql
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: fithelp2024
+      volumes:
+        - "data-pdo:/var/lib/mysql"
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
+
+volumes:
+  data-pdo:
