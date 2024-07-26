@@ -76,23 +76,23 @@ class BodyPart extends BaseModel
     {
         $sql = "SELECT * FROM `body_parts`";
         $stmt = $this->db->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     // Lecture des sous-parties d'une partie du corps
 
-    public function getSubBodyParts(int $body_part_id): array
-    {
-        $sql = "SELECT * FROM `body_parts` WHERE `body_part_parent_id` = :body_part_id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':body_part_id', $body_part_id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
+    // public function getSubBodyParts(int $body_part_id): array
+    // {
+    //     $sql = "SELECT * FROM `body_parts` WHERE `body_part_parent_id` = :body_part_id";
+    //     $stmt = $this->db->prepare($sql);
+    //     $stmt->bindParam(':body_part_id', $body_part_id, PDO::PARAM_INT);
+    //     $stmt->execute();
+    //     return $stmt->fetchAll();
+    // }
 
     // Lecture d'une partie du corps
 
-    public function getOneBodyPart(): ?array
+    public function getOneBodyPart(): object
     {
         $sql = "SELECT * FROM `body_parts` WHERE `body_part_id` = :body_part_id";
         $stmt = $this->db->prepare($sql);

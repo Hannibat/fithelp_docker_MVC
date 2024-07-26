@@ -4,7 +4,7 @@ require_once __DIR__ . '/BodyPart.php';
 
 // Création de la classe Exercice
 
-class Exercice extends BaseModel
+class Exercise extends BaseModel
 {
     /**
      * Méthode magique appelée automatiquement lors de l'instanciation d'une classe
@@ -20,7 +20,7 @@ class Exercice extends BaseModel
      */
 
     public function __construct(
-        private ?int $exercice_id = null,
+        private ?int $exercise_id = null,
         private ?string $title = null,
         private ?string $intro = null,
         private ?string $position = null,
@@ -32,11 +32,11 @@ class Exercice extends BaseModel
         parent::__construct();
     }
 
-    // Les getters pour l'exercice
+    // Les getters pour l'exercise
 
-    public function getExerciceId(): int
+    public function getExerciseId(): int
     {
-        return $this->exercice_id;
+        return $this->exercise_id;
     }
 
     public function getTitle(): string
@@ -74,11 +74,11 @@ class Exercice extends BaseModel
         return $this->body_part_id;
     }
 
-    // Les setters pour l'exercice
+    // Les setters pour l'exercise
 
-    public function setExerciceId(int $exercice_id): self
+    public function setExerciseId(int $exercise_id): self
     {
-        $this->exercice_id = $exercice_id;
+        $this->exercise_id = $exercise_id;
         return $this;
     }
 
@@ -124,11 +124,11 @@ class Exercice extends BaseModel
         return $this;
     }
 
-    // Ajouter un exercice
+    // Ajouter un exercise
 
-    public function addExercice(): bool
+    public function addExercise(): bool
     {
-        $sql = "INSERT INTO `exercices` (`title`, `intro`, `position`, `movement`, `image`, `targeted_muscles`, `body_part_id`) 
+        $sql = "INSERT INTO `exercises` (`title`, `intro`, `position`, `movement`, `image`, `targeted_muscles`, `body_part_id`) 
                 VALUES (:title, :intro, :position, :movement, :image, :targeted_muscles, :body_part_id)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':title', $this->title, PDO::PARAM_STR);
@@ -141,53 +141,52 @@ class Exercice extends BaseModel
         return $stmt->execute();
     }
 
-    // Lecture de tous les exercices
+    // Lecture de tous les exercises
 
-    public function getAllExercices(): array
+    public function getAllExercises(): array
     {
-        $sql = "SELECT `exercices`.*, `body_parts`.`body_part` as `body_part` 
-            FROM `exercices`
-            INNER JOIN `body_parts` ON `exercices`.`body_part_id` = `body_parts`.`body_part_id`";
+        $sql = "SELECT `exercises`.*, `body_parts`.`body_part` as `body_part` 
+            FROM `exercises`
+            INNER JOIN `body_parts` ON `exercises`.`body_part_id` = `body_parts`.`body_part_id`";
         $stmt = $this->db->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
-    // Lecture des exercices d'une seule partie du corps
+    // Lecture des exercises d'une seule partie du corps
 
-    public function getExercicesByBodyPart(int $body_part_id): array
+    public function getExercisesByBodyPart(int $body_part_id): array
     {
-        $sql = "SELECT `exercices`.*, `body_parts`.`body_part` as `body_part` 
-            FROM `exercices`
-            INNER JOIN `body_parts` ON `exercices`.`body_part_id` = `body_parts`.`body_part_id`
-            WHERE `exercices`.`body_part_id` = :body_part_id";
+        $sql = "SELECT `exercises`.*, `body_parts`.`body_part` as `body_part` 
+            FROM `exercises`
+            INNER JOIN `body_parts` ON `exercises`.`body_part_id` = `body_parts`.`body_part_id`
+            WHERE `exercises`.`body_part_id` = :body_part_id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':body_part_id', $body_part_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
-    // Lecture d'un exercice
+    // Lecture d'un exercise
 
-    public function getOneExercice(): ?array
+    public function getOneExercise($exercise_id): object
     {
-        $sql = "SELECT `exercices`.*, `body_parts`.`body_part` as `body_part` 
-        FROM `exercices`
-        INNER JOIN `body_parts` ON `exercices`.`body_part_id` = `body_parts`.`body_part_id`
-        WHERE `exercice_id` = :exercice_id";
+        $sql = "SELECT `exercises`.*, `body_parts`.`body_part` as `body_part` 
+        FROM `exercises`
+        INNER JOIN `body_parts` ON `exercises`.`body_part_id` = `body_parts`.`body_part_id`
+        WHERE `exercise_id` = :exercise_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
+        $stmt->bindParam(':exercise_id', $exercise_id, PDO::PARAM_INT);
         $stmt->execute();
-        $row = $stmt->fetch();
-        return $row ?: null;
+        return $stmt->fetch();
     }
 
-    // Modifier un exercice
+    // Modifier un exercise
 
-    public function updateExercice(): bool
+    public function updateExercise(): bool
     {
-        $sql = "UPDATE `exercices` 
+        $sql = "UPDATE `exercises` 
                 SET `title` = :title, `intro` = :intro, `position` = :position, `movement` = :movement, `image` = :image, `targeted_muscles` = :targeted_muscles, `body_part_id` = :body_part_id  
-                WHERE `exercice_id` = :exercice_id";
+                WHERE `exercise_id` = :exercise_id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':title', $this->title, PDO::PARAM_STR);
         $stmt->bindParam(':intro', $this->intro, PDO::PARAM_STR);
@@ -196,40 +195,40 @@ class Exercice extends BaseModel
         $stmt->bindParam(':image', $this->image, PDO::PARAM_STR);
         $stmt->bindParam(':targeted_muscles', $this->targeted_muscles, PDO::PARAM_STR);
         $stmt->bindParam(':body_part_id', $this->body_part_id, PDO::PARAM_INT);
-        $stmt->bindParam(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
+        $stmt->bindParam(':exercise_id', $this->exercise_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
-    // Supprimer un exercice
+    // Supprimer un exercise
 
-    public function deleteExercice(): bool
+    public function deleteExercise(): bool
     {
-        $sql = "DELETE FROM `exercices` WHERE `exercice_id` = :exercice_id;";
+        $sql = "DELETE FROM `exercises` WHERE `exercise_id` = :exercise_id;";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
+        $stmt->bindValue(':exercise_id', $this->exercise_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
-    // Supprimer l'image d'un exercice
-    public function removeImage(int $exercice_id): bool
+    // Supprimer l'image d'un exercise
+    public function removeImage(int $exercise_id): bool
     {
-        $sql = "UPDATE `exercices` 
+        $sql = "UPDATE `exercises` 
                 SET `image` = NULL 
-                WHERE `exercice_id` = :exercice_id";
+                WHERE `exercise_id` = :exercise_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':exercice_id', $exercice_id, PDO::PARAM_INT);
+        $stmt->bindParam(':exercise_id', $exercise_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
-    // Ajouter ou mettre à jour l'image d'un exercice
+    // Ajouter ou mettre à jour l'image d'un exercise
     public function addImage(): bool
     {
-        $sql = "UPDATE `exercices` 
+        $sql = "UPDATE `exercises` 
                 SET `image` = :image 
-                WHERE `exercice_id` = :exercice_id";
+                WHERE `exercise_id` = :exercise_id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':image', $this->image, PDO::PARAM_STR);
-        $stmt->bindParam(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
+        $stmt->bindParam(':exercise_id', $this->exercise_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

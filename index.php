@@ -3,6 +3,9 @@
 require_once './config/database.php';
 require_once './Models/Database.php';
 require_once './Models/BaseModel.php';
+require_once './Models/BodyPart.php';
+require_once './Models/Exercise.php';
+
 
 
 // helpers
@@ -20,17 +23,18 @@ $page = filter_var($page, FILTER_SANITIZE_SPECIAL_CHARS);
 $path = match ($page) {
     '','showCase/home' => 'showCase/home',
     'showCase/detail' => 'showCase/detail',
-    'showCase/reservation' => 'showCase/reservation',
-    'categories/list' => 'dashboard/categories/list',
-    'categories/add' => 'dashboard/categories/add',
-    'categories/update' => 'dashboard/categories/update',
+
+    'exercises/add-exercise' => 'dashboard/exercises/add-exercise',
+    'exercises/list-exercises' => 'dashboard/exercises/list-exercises',
+    'exercises/update-exercise' => 'dashboard/exercises/update-exercise',
+
+    'bodies-part/add-body-part' => 'dashboard/bodies-part/add-body-part',
+
     'categories/delete' => 'dashboard/categories/delete',
-    'vehicles/add-vehicle' => 'dashboard/vehicles/add-vehicle',
+
     'vehicles/list-vehicles' => 'dashboard/vehicles/list-vehicle',
     default => '404'
 };
 
-
 // Router
-
 require_once './Controllers/' . $path . '-ctrl.php';

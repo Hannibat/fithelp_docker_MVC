@@ -1,0 +1,180 @@
+    /* body */
+
+    .bg-blueElec {
+        background-color: #2c75ff;
+    }
+    
+    .text-blueElec-bold {
+        --bs-text-opacity: 1;
+        color: #2c75ff !important;
+        font-family: 'HelveticaWorld', sans-serif;
+        font-weight: 700;
+    }
+    
+    .text-blueElec-regular {
+        --bs-text-opacity: 1;
+        color: #2c75ff !important;
+        font-family: 'HelveticaWorld', sans-serif;
+        font-weight: 400;
+    }
+    
+    :root {
+        font-size: 15px;
+        }
+    
+        /* header */
+    
+    .nav-link {
+        font-family: 'HelveticaWorld', sans-serif;
+        font-weight: 700;
+        color: #2c75ff;
+        font-size: 1.2rem;
+    }
+    
+        /* footer */
+    
+    ul {
+            list-style-type:none;
+        }
+    
+        /* media  */
+    
+    @media (min-width: 768px) {
+        :root {
+            font-size: 17.5px;
+            }
+    }
+        
+    @media (min-width: 992px) {
+        :root {
+        font-size: 22px;
+        }
+    }
+    
+        /* hero */
+    
+    .bg-hero-image {
+        background-image: url(/public/assets/img/hero.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 45vh;
+        }
+    
+    .btn-action {
+        font-family: 'HelveticaWorld', sans-serif;
+        font-weight: 600;
+        color: white;
+        background-color: #2c75ff;
+    }
+    
+    .btn:hover {
+        color: white !important;
+        background-color: #2c75ff !important;
+    }
+    
+    /* hero home */
+    
+    #hero p {
+        font-size: 1.5rem;
+        width: 30%;
+        font-family: 'HelveticaWorld', sans-serif;
+        font-weight: 700;
+    }
+    
+    .bg-hero-image {
+        background-image: url(/public/assets/img/herocompress.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 55vh;
+    }
+    
+    /* Les diffèrentes polices */
+    @font-face {
+        font-family: 'Inter';
+        font-weight: 400;
+        src: url('/public/assets/font/Inter-Regular.ttf') format('truetype');
+    }
+    
+    @font-face {
+        font-family: 'Inter';
+        font-weight: 700;
+        src: url('/public/assets/font/Inter-Bold.ttf') format('truetype');
+    }
+    
+    @font-face {
+        font-family: 'HelveticaWorld';
+        font-weight: 600;
+        src: url('/public/assets/font/HelveticaWorld-Regular.ttf') format('truetype');
+    }
+    
+    @font-face {
+        font-family: 'HelveticaWorld';
+        font-weight: 600;
+        src: url('/public/assets/font/HelveticaWorld-Bold.ttf') format('truetype');
+    }
+    
+    /* cards */
+    .card-title {
+        font-family: 'HelveticaWorld', sans-serif;
+        font-weight: 600;
+    }
+    
+    .card-text {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+    }
+    
+    .card {
+        padding: 0;
+    }
+    
+    .card-body {
+        padding: 10px;
+    }
+    
+    /* article */
+    .card-text-article {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+    }
+    
+    .btn-article {
+            font-family: 'HelveticaWorld', sans-serif;
+            font-weight: 400;
+            color: white;
+            background-color: #2c75ff;
+            padding: 6px;
+        }
+    
+/* presentation */
+
+#presentation {
+    background-color: #393E42 !important;
+}
+
+#presentation img {
+    width: 15rem;
+    max-width: 100%;
+}
+
+#presentation h3 {
+    color: #2c75ff !important;
+    font-family: 'HelveticaWorld';
+    font-weight: 600;
+}
+
+#presentation #text-presentation {
+    font-family: 'Inter';
+    font-weight: 400;
+}
+
+.words {
+    color: #2c75ff !important;
+}
+
+/* Form */

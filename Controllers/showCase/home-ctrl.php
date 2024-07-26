@@ -1,0 +1,3 @@
+<?php
+
+renderView('showCase/home');
