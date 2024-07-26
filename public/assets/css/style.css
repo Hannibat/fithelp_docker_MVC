@@ -178,3 +178,9 @@
 }
 
 /* Form */
+
+.update-textarea {
+    overflow: hidden;
+    resize: vertical;
+    min-height: 50px; 
+}

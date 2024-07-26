@@ -27,15 +27,11 @@
                     <div class="card-body">
                         <h5 class="card-title"><?= $exercise->title ?></h5>
                         <h6 class="card-subtitle text-muted"><?= $exercise->body_part ?></h6>
-                        <form method="GET" class="row justify-content-around px-1">
-                            <div class="col-8 d-flex justify-content-center">
-                                <input type="hidden" name="exercise_id" value="<?= htmlspecialchars($exercise->exercise_id) ?>">
-                                <input type="hidden" name="page" value="exercises/update-exercise">
-                                <button type="submit" class="btn btn-warning mt-1 w-100">Modifier</button>
+                        <form action="" method="GET" class="row justify-content-around px-1">
+                            <div class="col-7 d-flex justify-content-center px-1">
+                                <a class="btn btn-warning" href="?page=exercises/update-exercise&exercise_id=<?= htmlspecialchars($exercise->exercise_id) ?>">Modifier</a>
                             </div>
-                        </form>
-                        <form action="" method="POST" class="row justify-content-around px-1">
-                            <div class="col-8 d-flex justify-content-center">
+                            <div class="col-7 d-flex justify-content-center">
                                 <input type="hidden" name="exercise_id" value="<?= htmlspecialchars($exercise->exercise_id) ?>">
                                 <button type="submit" name="delete" class="btn btn-danger mt-1 w-100">Supprimer</button>
                             </div>

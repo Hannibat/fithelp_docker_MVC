@@ -9,7 +9,7 @@ class Exercise extends BaseModel
     /**
      * Méthode magique appelée automatiquement lors de l'instanciation d'une classe
      * 
-     * @param int $exercice_id correspond à l'id de l'exercice
+     * @param int $exercise_id correspond à l'id de l'exercice
      * @param string $title correspond au titre de l'exercice
      * @param string $intro correspond à l'introduction de l'exercice
      * @param string $position correspond à la description de la position de l'exercice
@@ -32,7 +32,7 @@ class Exercise extends BaseModel
         parent::__construct();
     }
 
-    // Les getters pour l'exercise
+    // Les getters pour l'exercice
 
     public function getExerciseId(): int
     {
@@ -74,7 +74,7 @@ class Exercise extends BaseModel
         return $this->body_part_id;
     }
 
-    // Les setters pour l'exercise
+    // Les setters pour l'exercice
 
     public function setExerciseId(int $exercise_id): self
     {
@@ -124,7 +124,7 @@ class Exercise extends BaseModel
         return $this;
     }
 
-    // Ajouter un exercise
+    // Ajouter un exercice
 
     public function addExercise(): bool
     {
@@ -141,7 +141,7 @@ class Exercise extends BaseModel
         return $stmt->execute();
     }
 
-    // Lecture de tous les exercises
+    // Lecture de tous les exercices
 
     public function getAllExercises(): array
     {
@@ -152,7 +152,7 @@ class Exercise extends BaseModel
         return $stmt->fetchAll();
     }
 
-    // Lecture des exercises d'une seule partie du corps
+    // Lecture des exercices d'une seule partie du corps
 
     public function getExercisesByBodyPart(int $body_part_id): array
     {
@@ -166,7 +166,7 @@ class Exercise extends BaseModel
         return $stmt->fetchAll();
     }
 
-    // Lecture d'un exercise
+    // Lecture d'un exercice
 
     public function getOneExercise($exercise_id): object
     {
@@ -180,7 +180,7 @@ class Exercise extends BaseModel
         return $stmt->fetch();
     }
 
-    // Modifier un exercise
+    // Modifier un exercice
 
     public function updateExercise(): bool
     {
@@ -199,7 +199,7 @@ class Exercise extends BaseModel
         return $stmt->execute();
     }
 
-    // Supprimer un exercise
+    // Supprimer un exercice
 
     public function deleteExercise(): bool
     {
@@ -209,7 +209,7 @@ class Exercise extends BaseModel
         return $stmt->execute();
     }
 
-    // Supprimer l'image d'un exercise
+    // Supprimer l'image d'un exercice
     public function removeImage(int $exercise_id): bool
     {
         $sql = "UPDATE `exercises` 
@@ -220,7 +220,7 @@ class Exercise extends BaseModel
         return $stmt->execute();
     }
 
-    // Ajouter ou mettre à jour l'image d'un exercise
+    // Ajouter ou mettre à jour l'image d'un exercice
     public function addImage(): bool
     {
         $sql = "UPDATE `exercises` 

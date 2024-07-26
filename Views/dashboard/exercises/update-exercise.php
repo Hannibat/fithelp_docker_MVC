@@ -1,56 +1,66 @@
 <?php ob_start(); ?>
-<div class="container">
-    <h1 class="text-center my-3"><?= $title ?></h1>
+<a href="/?page=exercises/list-exercises" class="mx-5">Retour</a>
+<div class="container my-3">
+    <h1 class="text-center my-3"><?= htmlspecialchars($title) ?></h1>
     <div class="row justify-content-center">
-        <div class="col-md-5 shadow p-3">
-            <form method="POST" action="" enctype="multipart/form-data">
-            <div class="mb-3">
-                    <label for="brand" class="form-label mt-4">Partie du corps</label>
-                    <select name="body_part" id="body_part">
-                        <option disabled selected>-- Selectionner une partie du corps --</option>
-                        <?php foreach($body_parts as $body_part) : ?>
-                            <option <?= $body_part == $body_part->body_part ? 'selected' : '' ?>><?= $body_part ?></option>
+        <div class="col-md-10 shadow p-4 rounded">
+            <form id="update-exercise-form" action="" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="exercise_id" value="<?= htmlspecialchars($exercise->exercise_id); ?>">
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Titre</label>
+                    <input id="title" class="form-control" type="text" name="title" value="<?= htmlspecialchars($exercise->title, ENT_QUOTES, 'UTF-8'); ?>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="intro" class="form-label">Introduction</label>
+                    <div id="intro" class="form-control" contenteditable="true"><?= htmlspecialchars_decode($exercise->intro, ENT_QUOTES); ?></div>
+                    <input type="hidden" id="intro-hidden" name="intro-hidden" value="<?= htmlspecialchars($exercise->intro, ENT_QUOTES, 'UTF-8'); ?>">
+                </div>
+
+                <div class="mb-3">
+                    <label for="position" class="form-label">Position</label>
+                    <div id="position" class="form-control" contenteditable="true"><?= htmlspecialchars_decode($exercise->position, ENT_QUOTES); ?></div>
+                    <input type="hidden" id="position-hidden" name="position-hidden" value="<?= htmlspecialchars($exercise->position, ENT_QUOTES, 'UTF-8'); ?>">
+                </div>
+
+                <div class="mb-3">
+                    <label for="movement" class="form-label">Mouvement</label>
+                    <div id="movement" class="form-control" contenteditable="true"><?= htmlspecialchars_decode($exercise->movement, ENT_QUOTES); ?></div>
+                    <input type="hidden" id="movement-hidden" name="movement-hidden" value="<?= htmlspecialchars($exercise->movement, ENT_QUOTES, 'UTF-8'); ?>">
+                </div>
+
+                <div class="mb-3">
+                    <label for="targeted_muscles" class="form-label">Muscles ciblés</label>
+                    <div id="targeted_muscles" class="form-control" contenteditable="true"><?= htmlspecialchars_decode($exercise->targeted_muscles, ENT_QUOTES); ?></div>
+                    <input type="hidden" id="targeted_muscles-hidden" name="targeted_muscles-hidden" value="<?= htmlspecialchars($exercise->targeted_muscles, ENT_QUOTES, 'UTF-8'); ?>">
+                </div>
+
+                <div class="mb-3">
+                    <label for="body_part" class="form-label">Partie du corps</label>
+                    <select id="body_part" class="form-select custom-select-size" name="body_part" required>
+                        <?php foreach ($body_parts as $body_part) : ?>
+                            <option value="<?= htmlspecialchars($body_part->body_part_id, ENT_QUOTES, 'UTF-8') ?>" <?= $body_part->body_part_id == $exercise->body_part_id ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($body_part->body_part, ENT_QUOTES, 'UTF-8') ?>
+                            </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
 
-            <?php foreach ($vehicles as $vehicle) : ?>
-                <div>
-                    <div class="id-vehicle" scope="row"><?= $vehicle->vehicle_id ?>
-                </div>
-                    <div>
-                        <form class="update-vehicle-form" action="" medivod="POST">
-                            <input type="hidden" name="vehicle_id" value="<?php echo $vehicle->vehicle_id; ?>">
-                            <input class="brand" type="text" name="brand" value="<?php echo htmlspecialchars($vehicle->brand); ?>">
-                    <div>
-                        <input class="model" type="text" name="model" value="<?php echo htmlspecialchars($vehicle->model); ?>">
+                <div id="img-exercise-update" class="py-2 hide-show-picture">
+                    <p>Image actuelle :</p>
+                    <img class="img-fluid w-50" src="<?= '/public/uploads/exercises/' . htmlspecialchars($exercise->image, ENT_QUOTES, 'UTF-8'); ?>" alt="<?= htmlspecialchars($exercise->title, ENT_QUOTES, 'UTF-8') ?>" />
+                    <div class="col-12 mb-3">
+                        <label for="formFile" class="form-label">Remplacer image</label>
+                        <input class="form-control" type="file" id="formFile" name="file">
                     </div>
-                    <div>
-                        <input class="regidivation" type="text" name="regidivation" value="<?php echo htmlspecialchars($vehicle->registration); ?>">
-                    </div>
-                    <div>
-                        <input class="mileage" type="text" name="mileage" value="<?php echo htmlspecialchars($vehicle->mileage); ?>">
-                    </div>
-                    <div>
-                        <select class="form-select custom-select-size" name="category" id="">
-                            <?php foreach ($categories as $category) : ?>
-                                <option value="<?= $category->category_id ?>" <?= $category->category_id === $vehicle->category_id ? 'selected' : '' ?>><?= $category->name ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
-                            </div>
                 </div>
-                <div>
-                    <button type="submit" name="update" class="btn btn-primary">Modifier</button>
+
+                <div class="text-center">
+                    <button type="submit" name="update" class="btn btn-primary">Enregistrer</button>
                 </div>
-                <div>
-                    <input type="hidden" name="vehicle_id" value="<?= htmlspecialchars($vehicle->vehicle_id); ?>">
-                    <button type="submit" name="delete" class="btn btn-danger">Supprimer</button>
-                </div>
-                <button type="submit" class="btn btn-primary">Enregister</button>
             </form>
         </div>
     </div>
 </div>
-<?php endforeach ?>
 <?php $main = ob_get_clean(); ?>
