@@ -75,12 +75,12 @@ class Calorie extends BaseModel
 
     public function addCalorieCalculate(): bool
     {
-        $sql = "INSERT INTO `calorie_calculate` (`lvl_act`, `objective`, `user_id`) 
-                VALUES (:lvl_act, :objective, :user_id)";
+        $sql = 'INSERT INTO `calorie_calculate` (`lvl_act`, `objective`, `user_id`) 
+                VALUES (:lvl_act, :objective, :user_id);';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':lvl_act', $this->lvl_act, PDO::PARAM_STR);
-        $stmt->bindParam(':objective', $this->objective, PDO::PARAM_STR);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':lvl_act', $this->lvl_act, PDO::PARAM_STR);
+        $stmt->bindValue(':objective', $this->objective, PDO::PARAM_STR);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -88,9 +88,9 @@ class Calorie extends BaseModel
 
     public function getAllCalorieCalculates(): array
     {
-        $sql = "SELECT `calorie_calculate`.*, `users`.`user_name` as `user_name`
+        $sql = 'SELECT `calorie_calculate`.*, `users`.`user_name` as `user_name`
                 FROM `calorie_calculate`
-                INNER JOIN `users` ON `calorie_calculate`.`user_id` = `users`.`user_id`";
+                INNER JOIN `users` ON `calorie_calculate`.`user_id` = `users`.`user_id`;';
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
@@ -99,12 +99,12 @@ class Calorie extends BaseModel
 
     public function getOneCalorieCalculate(): ?array
     {
-        $sql = "SELECT `calorie_calculate`.*, `users`.`user_name` as `user_name` 
+        $sql = 'SELECT `calorie_calculate`.*, `users`.`user_name` as `user_name` 
                 FROM `calorie_calculate`
                 INNER JOIN `users` ON `calorie_calculate`.`user_id` = `users`.`user_id`
-                WHERE `calorie_calculate`.`calorie_calculate_id` = :calorie_calculate_id";
+                WHERE `calorie_calculate`.`calorie_calculate_id` = :calorie_calculate_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':calorie_calculate_id', $this->calorie_calculate_id, PDO::PARAM_INT);
+        $stmt->bindValue(':calorie_calculate_id', $this->calorie_calculate_id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch();
         return $row ?: null;
@@ -114,14 +114,14 @@ class Calorie extends BaseModel
 
     public function updateCalorieCalculate(): bool
     {
-        $sql = "UPDATE `calorie_calculate` 
+        $sql = 'UPDATE `calorie_calculate` 
                 SET `lvl_act` = :lvl_act, `objective` = :objective, `user_id` = :user_id  
-                WHERE `calorie_calculate_id` = :calorie_calculate_id";
+                WHERE `calorie_calculate_id` = :calorie_calculate_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':lvl_act', $this->lvl_act, PDO::PARAM_STR);
-        $stmt->bindParam(':objective', $this->objective, PDO::PARAM_STR);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
-        $stmt->bindParam(':calorie_calculate_id', $this->calorie_calculate_id, PDO::PARAM_INT);
+        $stmt->bindValue(':lvl_act', $this->lvl_act, PDO::PARAM_STR);
+        $stmt->bindValue(':objective', $this->objective, PDO::PARAM_STR);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':calorie_calculate_id', $this->calorie_calculate_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -129,7 +129,7 @@ class Calorie extends BaseModel
 
     public function deleteCalorieCalculate(): bool
     {
-        $sql = "DELETE FROM `calorie_calculate` WHERE `calorie_calculate_id` = :calorie_calculate_id";
+        $sql = 'DELETE FROM `calorie_calculate` WHERE `calorie_calculate_id` = :calorie_calculate_id;';
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':calorie_calculate_id', $this->calorie_calculate_id, PDO::PARAM_INT);
         return $stmt->execute();

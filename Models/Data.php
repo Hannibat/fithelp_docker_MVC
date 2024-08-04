@@ -75,12 +75,12 @@ class Data extends BaseModel
 
     public function addData(): bool
     {
-        $sql = "INSERT INTO `data` (`weight`, `height`, `user_id`) 
-                VALUES (:weight, :height, :user_id)";
+        $sql = 'INSERT INTO `data` (`weight`, `height`, `user_id`) 
+                VALUES (:weight, :height, :user_id);';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':weight', $this->weight, PDO::PARAM_STR);
-        $stmt->bindParam(':height', $this->height, PDO::PARAM_STR);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':weight', $this->weight, PDO::PARAM_STR);
+        $stmt->bindValue(':height', $this->height, PDO::PARAM_STR);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -88,9 +88,9 @@ class Data extends BaseModel
 
     public function getAllData(): array
     {
-        $sql = "SELECT `data`.*, `users`.`user_name` as `user_name` 
+        $sql = 'SELECT `data`.*, `users`.`user_name` as `user_name` 
                 FROM `data`
-                INNER JOIN `users` ON `data`.`user_id` = users.user_id";
+                INNER JOIN `users` ON `data`.`user_id` = users.user_id;';
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
@@ -99,12 +99,12 @@ class Data extends BaseModel
 
     public function getOneData(): ?array
     {
-        $sql = "SELECT `data`.*, `users`.`user_name` as `user_name` 
+        $sql = 'SELECT `data`.*, `users`.`user_name` as `user_name` 
                 FROM `data`
                 INNER JOIN `users` ON `data`.`user_id` = users.user_id
-                WHERE `data`.`data_id` = :data_id";
+                WHERE `data`.`data_id` = :data_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':data_id', $this->data_id, PDO::PARAM_INT);
+        $stmt->bindValue(':data_id', $this->data_id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch();
         return $row ?: null;
@@ -114,14 +114,14 @@ class Data extends BaseModel
 
     public function updateData(): bool
     {
-        $sql = "UPDATE `data` 
+        $sql = 'UPDATE `data` 
                 SET `weight` = :weight, `height` = :height, `user_id` = :user_id  
-                WHERE `data_id` = :data_id";
+                WHERE `data_id` = :data_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':weight', $this->weight, PDO::PARAM_STR);
-        $stmt->bindParam(':height', $this->height, PDO::PARAM_STR);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
-        $stmt->bindParam(':data_id', $this->data_id, PDO::PARAM_INT);
+        $stmt->bindValue(':weight', $this->weight, PDO::PARAM_STR);
+        $stmt->bindValue(':height', $this->height, PDO::PARAM_STR);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':data_id', $this->data_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -129,7 +129,7 @@ class Data extends BaseModel
 
     public function deleteData(): bool
     {
-        $sql = "DELETE FROM `data` WHERE `data_id` = :data_id";
+        $sql = 'DELETE FROM `data` WHERE `data_id` = :data_id;';
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':data_id', $this->data_id, PDO::PARAM_INT);
         return $stmt->execute();

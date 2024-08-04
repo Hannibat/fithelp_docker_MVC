@@ -47,9 +47,9 @@ class CategoryArticle extends BaseModel
     // Création
 
     public function addCategoryArticle(): bool {
-        $sql = "INSERT INTO `types_articles` (`category_name`) VALUES (:category_name)";
+        $sql = 'INSERT INTO `types_articles` (`category_name`) VALUES (:category_name);';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':category_name', $this->category_name, PDO::PARAM_STR);
+        $stmt->bindValue(':category_name', $this->category_name, PDO::PARAM_STR);
         return $stmt->execute();
     }
 
@@ -57,9 +57,9 @@ class CategoryArticle extends BaseModel
 
     public function getOneCategoryArticle(): object 
     {
-        $sql = "SELECT * FROM `types_articles` WHERE `category_article_id` = :category_article_id";
+        $sql = 'SELECT * FROM `types_articles` WHERE `category_article_id` = :category_article_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':category_article_id', $this->category_article_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_article_id', $this->category_article_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch();
     }
@@ -68,7 +68,7 @@ class CategoryArticle extends BaseModel
 
     public function getAllCategoriesArticles(): array 
     {
-        $sql = "SELECT * FROM `types_articles`";
+        $sql = 'SELECT * FROM `types_articles`;';
         $stmt = $this->db->query($sql);
         $listCategories = $stmt->fetchAll();
         return $listCategories;
@@ -78,10 +78,10 @@ class CategoryArticle extends BaseModel
 
     public function updateCategoryArticle(): bool 
     {
-        $sql = "UPDATE `types_articles` SET `category_name` = :category_name WHERE `category_article_id` = :category_article_id";
+        $sql = 'UPDATE `types_articles` SET `category_name` = :category_name WHERE `category_article_id` = :category_article_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':category_name', $this->category_name);
-        $stmt->bindParam(':category_article_id', $this->category_article_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_name', $this->category_name);
+        $stmt->bindValue(':category_article_id', $this->category_article_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -89,9 +89,9 @@ class CategoryArticle extends BaseModel
 
     public function deleteCategoryArticle(): bool 
     {
-        $sql = "DELETE FROM `types_articles` WHERE `category_article_id` = :category_article_id";
+        $sql = 'DELETE FROM `types_articles` WHERE `category_article_id` = :category_article_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':category_article_id', $this->category_article_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_article_id', $this->category_article_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

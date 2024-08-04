@@ -49,11 +49,11 @@ class Like extends BaseModel
 
     public function addLike(): bool
     {
-        $sql = "INSERT INTO `like` (`user_id`, `article_id`) 
-                VALUES (:user_id, :article_id)";
+        $sql = 'INSERT INTO `like` (`user_id`, `article_id`) 
+                VALUES (:user_id, :article_id);';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
-        $stmt->bindParam(':article_id', $this->article_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':article_id', $this->article_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -62,12 +62,12 @@ class Like extends BaseModel
 
     public function getUserLikes(int $user_id): array
     {
-        $sql = "SELECT `articles`.* 
+        $sql = 'SELECT `articles`.* 
                 FROM `like`
                 INNER JOIN `articles` ON `like`.`article_id` = `articles`.`article_id`
-                WHERE `like`.`user_id` = :user_id";
+                WHERE `like`.`user_id` = :user_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -76,12 +76,12 @@ class Like extends BaseModel
 
     public function getArticleLikes(int $article_id): array
     {
-        $sql = "SELECT `users`.* 
+        $sql = 'SELECT `users`.* 
                 FROM `like`
                 INNER JOIN `users` ON `like`.`user_id` = `users`.`user_id`
-                WHERE `like`.`article_id` = :article_id";
+                WHERE `like`.`article_id` = :article_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':article_id', $article_id, PDO::PARAM_INT);
+        $stmt->bindValue(':article_id', $article_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -90,10 +90,10 @@ class Like extends BaseModel
 
     public function removeLike(): bool
     {
-        $sql = "DELETE FROM `like` WHERE `user_id` = :user_id AND `article_id` = :article_id";
+        $sql = 'DELETE FROM `like` WHERE `user_id` = :user_id AND `article_id` = :article_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
-        $stmt->bindParam(':article_id', $this->article_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':article_id', $this->article_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

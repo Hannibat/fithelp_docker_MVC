@@ -49,11 +49,11 @@ class Mark extends BaseModel
 
     public function addMark(): bool
     {
-        $sql = "INSERT INTO `mark` (`user_id`, `exercice_id`) 
-                VALUES (:user_id, :exercice_id)";
+        $sql = 'INSERT INTO `mark` (`user_id`, `exercice_id`) 
+                VALUES (:user_id, :exercice_id);';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
-        $stmt->bindParam(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -62,12 +62,12 @@ class Mark extends BaseModel
     
     public function getUserMarks(int $user_id): array
     {
-        $sql = "SELECT `exercices`.* 
+        $sql = 'SELECT `exercices`.* 
                 FROM `mark`
                 INNER JOIN `exercices` ON `mark`.`exercice_id` = `exercices`.`exercice_id`
-                WHERE `mark`.`user_id` = :user_id";
+                WHERE `mark`.`user_id` = :user_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -76,12 +76,12 @@ class Mark extends BaseModel
     
     public function getExerciceMarks(int $exercice_id): array
     {
-        $sql = "SELECT `users`.* 
+        $sql = 'SELECT `users`.* 
                 FROM `mark`
                 INNER JOIN `users` ON `mark`.`user_id` = `users`.`user_id`
-                WHERE `mark`.`exercice_id` = :exercice_id";
+                WHERE `mark`.`exercice_id` = :exercice_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':exercice_id', $exercice_id, PDO::PARAM_INT);
+        $stmt->bindValue(':exercice_id', $exercice_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -90,10 +90,10 @@ class Mark extends BaseModel
 
     public function removeMark(): bool
     {
-        $sql = "DELETE FROM `mark` WHERE `user_id` = :user_id AND `exercice_id` = :exercice_id";
+        $sql = 'DELETE FROM `mark` WHERE `user_id` = :user_id AND `exercice_id` = :exercice_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
-        $stmt->bindParam(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 

@@ -88,13 +88,13 @@ class Comment extends BaseModel
 
     public function addComment(): bool
     {
-        $sql = "INSERT INTO `comments` (`content`, `publication_date`, `publicate`, `user_id`, `article_id`) 
-                VALUES (:content, :publication_date, :publicate, :user_id, :article_id)";
+        $sql = 'INSERT INTO `comments` (`content`, `publication_date`, `publicate`, `user_id`, `article_id`) 
+                VALUES (:content, :publication_date, :publicate, :user_id, :article_id);';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':content', $this->content, PDO::PARAM_STR);
-        $stmt->bindParam(':publicate', $this->publicate, PDO::PARAM_BOOL);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
-        $stmt->bindParam(':article_id', $this->article_id, PDO::PARAM_INT);
+        $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
+        $stmt->bindValue(':publicate', $this->publicate, PDO::PARAM_BOOL);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':article_id', $this->article_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -102,10 +102,10 @@ class Comment extends BaseModel
 
     public function getAllComments(): array
     {
-        $sql = "SELECT `comments`.*, `users`.`user_name` as `user_name`, `articles.title` as `article_title`
+        $sql = 'SELECT `comments`.*, `users`.`user_name` as `user_name`, `articles.title` as `article_title`
                 FROM `comments`
                 INNER JOIN `users` ON `comments`.`user_id` = `users`.`user_id`
-                INNER JOIN `articles` ON `comments`.article_id = `articles`.`article_id`";
+                INNER JOIN `articles` ON `comments`.article_id = `articles`.`article_id`;';
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll();
     }
@@ -114,13 +114,13 @@ class Comment extends BaseModel
 
     public function getOneComment(): ?array
     {
-        $sql = "SELECT `comments`.*, `users`.`user_name` as `user_name`, `articles`.`title` as `article_title`
+        $sql = 'SELECT `comments`.*, `users`.`user_name` as `user_name`, `articles`.`title` as `article_title`
                 FROM `comments`
                 INNER JOIN `users` ON `comments`.`user_id` = `users`.`user_id`
                 INNER JOIN `articles` ON `comments`.`article_id` = `articles`.`article_id`
-                WHERE `comments`.`comment_id` = :comment_id";
+                WHERE `comments`.`comment_id` = :comment_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':comment_id', $this->comment_id, PDO::PARAM_INT);
+        $stmt->bindValue(':comment_id', $this->comment_id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch();
         return $row ?: null;
@@ -130,15 +130,15 @@ class Comment extends BaseModel
 
     public function updateComment(): bool
     {
-        $sql = "UPDATE `comments` 
+        $sql = 'UPDATE `comments` 
                 SET `content` = :content, `publicate` = :publicate, `user_id` = :user_id, `article_id` = :article_id
-                WHERE `comment_id` = :comment_id";
+                WHERE `comment_id` = :comment_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':content', $this->content, PDO::PARAM_STR);
-        $stmt->bindParam(':publicate', $this->publicate, PDO::PARAM_BOOL);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
-        $stmt->bindParam(':article_id', $this->article_id, PDO::PARAM_INT);
-        $stmt->bindParam(':comment_id', $this->comment_id, PDO::PARAM_INT);
+        $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
+        $stmt->bindValue(':publicate', $this->publicate, PDO::PARAM_BOOL);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':article_id', $this->article_id, PDO::PARAM_INT);
+        $stmt->bindValue(':comment_id', $this->comment_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -146,7 +146,7 @@ class Comment extends BaseModel
 
     public function deleteComment(): bool
     {
-        $sql = "DELETE FROM `comments` WHERE `comment_id` = :comment_id";
+        $sql = 'DELETE FROM `comments` WHERE `comment_id` = :comment_id;';
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':comment_id', $this->comment_id, PDO::PARAM_INT);
         return $stmt->execute();

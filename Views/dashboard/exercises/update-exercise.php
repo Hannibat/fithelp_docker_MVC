@@ -49,7 +49,7 @@
 
                 <div id="img-exercise-update" class="py-2 hide-show-picture">
                     <p>Image actuelle :</p>
-                    <img class="img-fluid w-50" src="<?= '/public/uploads/exercises/' . htmlspecialchars($exercise->image, ENT_QUOTES, 'UTF-8'); ?>" alt="<?= htmlspecialchars($exercise->title, ENT_QUOTES, 'UTF-8') ?>" />
+                    <img class="img-fluid w-50" src="<?= '/public/uploads/exercises/' . ($exercise->image ?? ''); ?>" alt="<?= htmlspecialchars($exercise->title, ENT_QUOTES, 'UTF-8') ?>" />
                     <div class="col-12 mb-3">
                         <label for="formFile" class="form-label">Remplacer image</label>
                         <input class="form-control" type="file" id="formFile" name="file">

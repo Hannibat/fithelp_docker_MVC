@@ -10,21 +10,23 @@ class User extends BaseModel
      * 
      * @param int $user_id correspond à l'id de l'utilisateur
      * @param string $user_name correspond au nom de l'utilisateur
-     * @param string $mail correspond à l'email de l'utilisateur
+     * @param string $email correspond à l'email de l'utilisateur
      * @param string $password correspond au mot de passe de l'utilisateur
      * @param string $birthdate correspond à la date de naissance de l'utilisateur
      * @param bool $gender correspond au sexe de l'utilisateur
      * @param int $role correspond au rôle de l'utilisateur
+     * @param string $inscription_date date inscription de l'utilisateur
      */
 
     public function __construct(
         private ?int $user_id = null,
         private ?string $user_name = null,
-        private ?string $mail = null,
+        private ?string $email = null,
         private ?string $password = null,
         private ?string $birthdate = null,
         private ?bool $gender = null,
-        private ?int $role = null
+        private ?int $role = null,
+        private ?string $inscription_date = null
     ) {
         parent::__construct();
     }
@@ -41,9 +43,9 @@ class User extends BaseModel
         return $this->user_name;
     }
 
-    public function getMail(): string
+    public function getEmail(): string
     {
-        return $this->mail;
+        return $this->email;
     }
 
     public function getPassword(): string
@@ -80,9 +82,9 @@ class User extends BaseModel
         return $this;
     }
 
-    public function setMail(string $mail): self
+    public function setEmail(string $email): self
     {
-        $this->mail = $mail;
+        $this->email = $email;
         return $this;
     }
 
@@ -114,54 +116,53 @@ class User extends BaseModel
 
     public function addUser(): bool
     {
-        $sql = "INSERT INTO `users` (`user_name`, `mail`, `password`, `birthdate`, `gender`, `role`) 
-                VALUES (:user_name, :mail, :password, :birthdate, :gender, :role)";
+        $sql = 'INSERT INTO `users` (`user_name`, `email`, `password`, `birthdate`, `gender`, `role`) 
+                VALUES (:user_name, :email, :password, :birthdate, :gender, :role);';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':user_name', $this->user_name, PDO::PARAM_STR);
-        $stmt->bindParam(':mail', $this->mail, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $this->password, PDO::PARAM_STR);
-        $stmt->bindParam(':birthdate', $this->birthdate, PDO::PARAM_STR);
-        $stmt->bindParam(':gender', $this->gender, PDO::PARAM_BOOL);
-        $stmt->bindParam(':role', $this->role, PDO::PARAM_INT);
+        $stmt->bindValue(':user_name', $this->user_name, PDO::PARAM_STR);
+        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $this->password, PDO::PARAM_STR);
+        $stmt->bindValue(':birthdate', $this->birthdate, PDO::PARAM_STR);
+        $stmt->bindValue(':gender', $this->gender, PDO::PARAM_BOOL);
+        $stmt->bindValue(':role', $this->role, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
     // Lecture de tous les utilisateurs
 
-    public function getAllUsers(): array
+    public static function getAllUsers(): array
     {
-        $sql = "SELECT * FROM `users`";
-        $stmt = $this->db->query($sql);
+        $sql = 'SELECT * FROM `users`;';
+        $stmt = Database::connect()->query($sql);
         return $stmt->fetchAll();
     }
 
     // Lecture d'un utilisateur
 
-    public function getOneUser(): ?array
+    public static function getOneUser($user_id): ?array
     {
-        $sql = "SELECT * FROM `users` WHERE `user_id` = :user_id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
+        $sql = 'SELECT * FROM `users` WHERE `user_id` = :user_id;';
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
-        $row = $stmt->fetch();
-        return $row ?: null;
+        return $stmt->fetch();
     }
 
     // Modifier un utilisateur
 
     public function updateUser(): bool
     {
-        $sql = "UPDATE `users` 
-                SET `user_name` = :user_name, `mail` = :mail, `password` = :password, `birthdate` = :birthdate, `gender` = :gender, `role` = :role
-                WHERE `user_id` = :user_id";
+        $sql = 'UPDATE `users` 
+                SET `user_name` = :user_name, `email` = :email, `password` = :password, `birthdate` = :birthdate, `gender` = :gender, `role` = :role
+                WHERE `user_id` = :user_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':user_name', $this->user_name, PDO::PARAM_STR);
-        $stmt->bindParam(':mail', $this->mail, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $this->password, PDO::PARAM_STR);
-        $stmt->bindParam(':birthdate', $this->birthdate, PDO::PARAM_STR);
-        $stmt->bindParam(':gender', $this->gender, PDO::PARAM_BOOL);
-        $stmt->bindParam(':role', $this->role, PDO::PARAM_INT);
-        $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_name', $this->user_name, PDO::PARAM_STR);
+        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $this->password, PDO::PARAM_STR);
+        $stmt->bindValue(':birthdate', $this->birthdate, PDO::PARAM_STR);
+        $stmt->bindValue(':gender', $this->gender, PDO::PARAM_BOOL);
+        $stmt->bindValue(':role', $this->role, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -169,11 +170,51 @@ class User extends BaseModel
 
     public function deleteUser(): bool
     {
-        $sql = "DELETE FROM `users` WHERE `user_id` = :user_id";
+        $sql = 'DELETE FROM `users` WHERE `user_id` = :user_id;';
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
+    // Vérifier si l'email de l'utilisateur inscrit existe déjà
+
+    public static function isMailExist(string $email) : bool
+    {
+        $sql = 'SELECT `email` FROM `users` WHERE `email` = :email;';
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+        return $stmt->fetch() ? true : false;
+    }
+
+    // Sélectionner l'utilisateur avec son email
+
+    public static function getUserByEmail(string $email): object|false{
+        $sql = 'SELECT * FROM `users` WHERE `email` = :email;';
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    // Savoir si il est admin ou non
+
+    public static function isAdmin(): bool{
+        if(isset($_SESSION['user']) && $_SESSION['user']->role === 1){
+            return true;
+        } else {
+            return false;
+        } 
+    }
+
+    // Savoir si il est user ou non
+
+    public static function isUser(): bool{
+        if(isset($_SESSION['user']) && $_SESSION['user']->role === null){
+            return true;
+        } else {
+            return false;
+        } 
+    }
 }
 ?>

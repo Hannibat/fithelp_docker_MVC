@@ -184,3 +184,19 @@
     resize: vertical;
     min-height: 50px; 
 }
+
+/* Liens pour la navbar selon user */
+
+.disabled-link {
+    pointer-events: none;
+    color: grey;
+    cursor: default;
+}
+
+/* Message pour les exercices et programmes */
+.message {
+    text-align: center;
+    font-size: 0.9em;
+    color: grey;
+    margin-top: 2px;
+}

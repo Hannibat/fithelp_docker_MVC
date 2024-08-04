@@ -49,11 +49,11 @@ class ProgramEx extends BaseModel
 
     public function addProgramEx(): bool
     {
-        $sql = "INSERT INTO `program_ex` (`exercice_id`, `program_id`) 
-                VALUES (:exercice_id, :program_id)";
+        $sql = 'INSERT INTO `program_ex` (`exercice_id`, `program_id`) 
+                VALUES (:exercice_id, :program_id);';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
-        $stmt->bindParam(':program_id', $this->program_id, PDO::PARAM_INT);
+        $stmt->bindValue(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
+        $stmt->bindValue(':program_id', $this->program_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -62,12 +62,12 @@ class ProgramEx extends BaseModel
     
     public function getExercisesByProgram(int $program_id): array
     {
-        $sql = "SELECT `exercices`.* 
+        $sql = 'SELECT `exercices`.* 
                 FROM `program_ex`
                 INNER JOIN `exercices` ON `program_ex`.`exercice_id` = `exercices`.`exercice_id`
-                WHERE `program_ex`.`program_id` = :program_id";
+                WHERE `program_ex`.`program_id` = :program_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':program_id', $program_id, PDO::PARAM_INT);
+        $stmt->bindValue(':program_id', $program_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -76,24 +76,24 @@ class ProgramEx extends BaseModel
     
     public function getProgramsByExercise(int $exercice_id): array
     {
-        $sql = "SELECT `programs`.* 
+        $sql = 'SELECT `programs`.* 
                 FROM `program_ex`
                 INNER JOIN `programs` ON `program_ex`.`program_id` = `programs`.`program_id`
-                WHERE `program_ex`.`exercice_id` = :exercice_id";
+                WHERE `program_ex`.`exercice_id` = :exercice_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':exercice_id', $exercice_id, PDO::PARAM_INT);
+        $stmt->bindValue(':exercice_id', $exercice_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Supprimer une relation exercice-programme
 
-    public function removeProgramEx(): bool
+    public function deleteProgramEx(): bool
     {
-        $sql = "DELETE FROM `program_ex` WHERE `exercice_id` = :exercice_id AND `program_id` = :program_id";
+        $sql = 'DELETE FROM `program_ex` WHERE `exercice_id` = :exercice_id AND `program_id` = :program_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
-        $stmt->bindParam(':program_id', $this->program_id, PDO::PARAM_INT);
+        $stmt->bindValue(':exercice_id', $this->exercice_id, PDO::PARAM_INT);
+        $stmt->bindValue(':program_id', $this->program_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

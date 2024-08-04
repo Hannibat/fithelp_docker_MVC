@@ -1,3 +1,5 @@
+// utilisation pour les input cachés pour la modification d'un exercice 
+
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('update-exercise-form');
 
@@ -17,3 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('targeted_muscles-hidden').value = targeted_muscles;
     }
 });
+
+// Modal pour confirmer ou non la suppression d'un exercice
+
+// let $deleteExercise = document.querySelector('.delete-exercise');
+//     form.addEventListener('submit', function(event) {
+//         const confirmed = confirm('Êtes-vous sûr de vouloir supprimer cet exercice ?');
+//         if (confirmed) {
+//             form.submit();
+//         } else {
+//             event.preventDefault(); // Annuler la soumission du formulaire si l'utilisateur annule
+//         }
+//     });

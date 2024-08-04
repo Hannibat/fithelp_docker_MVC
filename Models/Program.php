@@ -75,12 +75,12 @@ class Program extends BaseModel
 
     public function addProgram(): bool
     {
-        $sql = "INSERT INTO `programs` (`name`, `description`, `duration`) 
-                VALUES (:name, :description, :duration)";
+        $sql = 'INSERT INTO `programs` (`name`, `description`, `duration`) 
+                VALUES (:name, :description, :duration);';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
-        $stmt->bindParam(':description', $this->description, PDO::PARAM_STR);
-        $stmt->bindParam(':duration', $this->duration, PDO::PARAM_INT);
+        $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $this->description, PDO::PARAM_STR);
+        $stmt->bindValue(':duration', $this->duration, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -88,7 +88,7 @@ class Program extends BaseModel
 
     public function getAllPrograms(): array
     {
-        $sql = "SELECT * FROM `programs`";
+        $sql = 'SELECT * FROM `programs`;';
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -97,9 +97,9 @@ class Program extends BaseModel
 
     public function getOneProgram(): ?array
     {
-        $sql = "SELECT * FROM `programs` WHERE `program_id` = :program_id";
+        $sql = 'SELECT * FROM `programs` WHERE `program_id` = :program_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':program_id', $this->program_id, PDO::PARAM_INT);
+        $stmt->bindValue(':program_id', $this->program_id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row ?: null;
@@ -109,14 +109,14 @@ class Program extends BaseModel
 
     public function updateProgram(): bool
     {
-        $sql = "UPDATE `programs` 
+        $sql = 'UPDATE `programs` 
                 SET `name` = :name, `description` = :description, `duration` = :duration  
-                WHERE `program_id` = :program_id";
+                WHERE `program_id` = :program_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
-        $stmt->bindParam(':description', $this->description, PDO::PARAM_STR);
-        $stmt->bindParam(':duration', $this->duration, PDO::PARAM_INT);
-        $stmt->bindParam(':program_id', $this->program_id, PDO::PARAM_INT);
+        $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $this->description, PDO::PARAM_STR);
+        $stmt->bindValue(':duration', $this->duration, PDO::PARAM_INT);
+        $stmt->bindValue(':program_id', $this->program_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -124,7 +124,7 @@ class Program extends BaseModel
 
     public function deleteProgram(): bool
     {
-        $sql = "DELETE FROM `programs` WHERE `program_id` = :program_id";
+        $sql = 'DELETE FROM `programs` WHERE `program_id` = :program_id;';
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':program_id', $this->program_id, PDO::PARAM_INT);
         return $stmt->execute();
