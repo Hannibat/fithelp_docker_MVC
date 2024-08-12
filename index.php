@@ -1,11 +1,14 @@
 <?php
 // Import des fichiers utilisés par les modèles
+require_once './config/config.php';
 require_once './config/database.php';
 require_once './Models/Database.php';
 require_once './Models/BaseModel.php';
 require_once './Models/BodyPart.php';
 require_once './Models/Exercise.php';
 require_once './Models/User.php';
+require_once './Models/Data.php';
+require_once './Models/Calorie.php';
 
 
 // helpers
@@ -32,7 +35,7 @@ $pathAdmin = match ($page) {
     'users/signin' => 'showCase/users/signin',
     'users/signout' => 'showCase/users/signout',
 
-    'showcase/profil' => 'showCase/profil',
+    'users/profil' => 'showCase/users/profil',
 
     default => '404'
 };
@@ -44,7 +47,7 @@ $pathUser = match ($page) {
     'users/signin' => 'showCase/users/signin',
     'users/signout' => 'showCase/users/signout',
     
-    'showcase/profil' => 'showCase/profil',
+    'users/profil' => 'showCase/users/profil',
 
     'exercises/list-exercises' => 'dashboard/exercises/list-exercises',
     'users/detail-ex' => 'showCase/users/detail-ex',
@@ -57,7 +60,6 @@ $pathPublic = match ($page) {
 
     'users/signup' => 'showCase/users/signup',
     'users/signin' => 'showCase/users/signin',
-    'users/signout' => 'showCase/users/signout',
 
     default => '404'
 };

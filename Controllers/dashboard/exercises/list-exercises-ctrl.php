@@ -2,6 +2,8 @@
 
 
 try {
+    $user = $_SESSION['user'];
+
     // Instances des modèles
     $bodyPartModel = new BodyPart();
     
@@ -16,4 +18,4 @@ try {
 
 $title = "Liste des exercises";
 
-renderView('dashboard/exercises/list-exercises', compact('title', 'exercises', 'body_parts'));
+renderView('dashboard/exercises/list-exercises', compact('title', 'exercises', 'body_parts','user'));

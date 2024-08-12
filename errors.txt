@@ -1,0 +1,5 @@
+Soucis avec regex pour user name et pour l'adresse mail
+La regex user name demande que des lettres, lorsque je mets des chiffres je n'ai pas d'erreur, 
+j'arrive à ajouter un utilisateur mais son user name est vide dans la base de données
+Pour l'adresse mail, je sanitize et validate mais lorsque je ne mets pas de .com cela n'est pas détectée comme une erreur,
+là aussi user est ajouté à la base de données mais le champ est vide

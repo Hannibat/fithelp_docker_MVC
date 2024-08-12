@@ -20,14 +20,77 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Modal pour confirmer ou non la suppression d'un exercice
+// Expérience utilisateur pour le mot de passe dans formulaire
 
-// let $deleteExercise = document.querySelector('.delete-exercise');
-//     form.addEventListener('submit', function(event) {
-//         const confirmed = confirm('Êtes-vous sûr de vouloir supprimer cet exercice ?');
-//         if (confirmed) {
-//             form.submit();
-//         } else {
-//             event.preventDefault(); // Annuler la soumission du formulaire si l'utilisateur annule
-//         }
-//     });
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+
+        const passwordPattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+
+        passwordInput.addEventListener('input', function() {
+            if (passwordPattern.test(passwordInput.value)) {
+                passwordInput.classList.remove('errorField');
+                passwordInput.classList.add('validField');
+            } else {
+                passwordInput.classList.remove('validField');
+                passwordInput.classList.add('errorField');
+            }
+        });
+
+        confirmPasswordInput.addEventListener('input', function() {
+            if (confirmPasswordInput.value === passwordInput.value && passwordPattern.test(passwordInput.value)) {
+                confirmPasswordInput.classList.remove('errorField');
+                confirmPasswordInput.classList.add('validField');
+            } else {
+                confirmPasswordInput.classList.remove('validField');
+                confirmPasswordInput.classList.add('errorField');
+            }
+        });
+    });
+
+// Dans profil pour calculer son imc, cacher la div et ouvrir avec le bouton
+// Pour modifier le + en - lorsqu'on appuie
+
+document.getElementById('toggleIMCForm').addEventListener('click', function() {
+    var form = document.getElementById('imcForm');
+    var symbol = document.getElementById('toggleSymbol');
+
+    if (form.classList.contains('d-none')) {
+        form.classList.remove('d-none');
+        form.style.opacity = 1;
+        symbol.textContent = '-'; // Change le symbole à -
+    } else {
+        form.classList.add('d-none');
+        form.style.opacity = 0;
+        symbol.textContent = '+'; // Change le symbole à +
+    }
+});
+
+// Même chose vec le calcul des besoins caloriques journalier
+
+document.getElementById('toggleCaloriesForm').addEventListener('click', function() {
+    var form = document.getElementById('caloriesForm');
+    var symbol = document.getElementById('toggleSymbolCalories');
+
+    if (form.classList.contains('d-none')) {
+        form.classList.remove('d-none');
+        form.style.opacity = 1;
+        symbol.textContent = '-'; // Change le symbole à -
+    } else {
+        form.classList.add('d-none');
+        form.style.opacity = 0;
+        symbol.textContent = '+'; // Change le symbole à +
+    }
+});
+
+// Pour afficher/masquer la liste des exercices
+document.getElementById('toggleExercises').addEventListener('click', function() {
+    var exercisesList = document.getElementById('exercisesList');
+    exercisesList.classList.toggle('d-none');
+});
+
+// Empêcher la page de se rafraichier lors de l'envoi du form
+// document.getElementById('imcFormEvent').addEventListener('submit', function(event) {
+//     event.preventDefault();
+// });

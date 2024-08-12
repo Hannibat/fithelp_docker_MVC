@@ -69,19 +69,25 @@
         <nav class="desktop navbar navbar-expand d-flex d-none d-lg-block">
             <div class="container-fluid row">
                 <div class="col-4">
-                    <img src="/public/assets/img/logo/FIT.HELP-name.png" alt="logo" class="logo_desktop" width="170" height="50">
+                    <a href="http://localhost:8001"><img src="/public/assets/img/logo/FIT.HELP-name.png" alt="logo" class="logo_desktop" width="170" height="50"></a>
                 </div>
                 <div class="collapse navbar-collapse col-8 d-flex" id="navbarSupportedContent">
                     <ul class="navbar-nav vw-100 justify-content-between">
                         <?php if (isset($_SESSION['user']) && $_SESSION['user']) { ?>
-                            <!-- Liens visibles uniquement si l'utilisateur est connecté -->
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#">Exercices</a>
+                                <a class="nav-link" aria-current="page" href="?page=exercises/list-exercises">Exercices</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Programmes</a>
                             </li>
-                        <?php } ?>
+                        <?php } else {?>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="http://localhost:8001/?page=users/signup">Exercices</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="http://localhost:8001/?page=users/signup">Programmes</a>
+                            </li>
+                            <?php } ?>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Articles</a>
                         </li>
@@ -98,7 +104,7 @@
                         <?php } ?>
                         <?php if (isset($_SESSION['user']) && $_SESSION['user']) { ?>
                             <li>
-                                <a href="?page=showcase/profil">
+                                <a href="?page=users/profil">
                                     <img class="mt-1" src="/public/assets/img/icons8-utilisateur-50.png" alt="photo de profil" width="50" height="50">
                                 </a>
                             </li>

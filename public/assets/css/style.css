@@ -185,18 +185,49 @@
     min-height: 50px; 
 }
 
-/* Liens pour la navbar selon user */
-
-.disabled-link {
-    pointer-events: none;
-    color: grey;
-    cursor: default;
+.error {
+    color: red;
 }
 
-/* Message pour les exercices et programmes */
-.message {
-    text-align: center;
-    font-size: 0.9em;
-    color: grey;
-    margin-top: 2px;
+.errorField {
+    border: 2px solid red !important;
+    box-shadow: none !important;
+}
+
+.validField {
+    border: 2px solid green !important;
+    box-shadow: none !important;
+}
+
+/* Mots en gras */
+
+.strong {
+    font-weight: bold;
+}
+
+/* Pour cacher dans le profil calcul imc et calories*/
+
+.d-none {
+    display: none;
+}
+
+#imcForm {
+    transition: opacity 0.3s ease;
+}
+
+.plus-sign {
+    font-size: 1.5rem; 
+    display: inline-block;
+    line-height: 1;
+    margin: 0px;
+}
+
+.minus-sign {
+    font-size: 2.5rem; 
+    display: inline-block;
+    line-height: 1;
+}
+
+.bg-orange {
+    background-color: orange;
 }

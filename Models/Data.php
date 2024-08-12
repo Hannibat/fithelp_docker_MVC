@@ -86,25 +86,25 @@ class Data extends BaseModel
 
     // Lecture de toutes les données
 
-    public function getAllData(): array
+    public static function getAllData(): array
     {
         $sql = 'SELECT `data`.*, `users`.`user_name` as `user_name` 
                 FROM `data`
                 INNER JOIN `users` ON `data`.`user_id` = users.user_id;';
-        $stmt = $this->db->query($sql);
+        $stmt = Database::connect()->query($sql);
         return $stmt->fetchAll();
     }
 
     // Lecture d'une donnée
 
-    public function getOneData(): ?array
+    public static function getOneData(int $data_id): ?object
     {
         $sql = 'SELECT `data`.*, `users`.`user_name` as `user_name` 
                 FROM `data`
                 INNER JOIN `users` ON `data`.`user_id` = users.user_id
                 WHERE `data`.`data_id` = :data_id;';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':data_id', $this->data_id, PDO::PARAM_INT);
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch();
         return $row ?: null;
@@ -127,11 +127,11 @@ class Data extends BaseModel
 
     // Supprimer des données
 
-    public function deleteData(): bool
+    public static function deleteData(int $data_id): bool
     {
         $sql = 'DELETE FROM `data` WHERE `data_id` = :data_id;';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':data_id', $this->data_id, PDO::PARAM_INT);
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

@@ -101,6 +101,6 @@ try {
 }
 
 
-$title = "Ajouter un exercise";
+$title = "Ajouter un exercice";
 
 renderView('dashboard/exercises/add-exercise', compact('title','body_parts'));
