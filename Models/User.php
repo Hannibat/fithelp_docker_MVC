@@ -168,11 +168,11 @@ class User extends BaseModel
 
     // Supprimer un utilisateur
 
-    public function deleteUser(): bool
+    public static function deleteUser($user_id): bool
     {
         $sql = 'DELETE FROM `users` WHERE `user_id` = :user_id;';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 

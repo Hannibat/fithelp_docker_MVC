@@ -84,16 +84,20 @@ class Data extends BaseModel
         return $stmt->execute();
     }
 
-    // Lecture de toutes les données
+    // Lecture de toutes les données pour un utilisateur
 
-    public static function getAllData(): array
-    {
-        $sql = 'SELECT `data`.*, `users`.`user_name` as `user_name` 
-                FROM `data`
-                INNER JOIN `users` ON `data`.`user_id` = users.user_id;';
-        $stmt = Database::connect()->query($sql);
-        return $stmt->fetchAll();
-    }
+    public static function getAllData($user_id): array
+{
+    $sql = 'SELECT `data`.*, `users`.`user_name` as `user_name` 
+            FROM `data`
+            INNER JOIN `users` ON `data`.`user_id` = users.user_id
+            WHERE `data`.`user_id` = :user_id';
+    
+    $stmt = Database::connect()->prepare($sql);  
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT); 
+    $stmt->execute();  // Exécution de la requête
+    return $stmt->fetchAll();  // Récupération de toutes les lignes
+}
 
     // Lecture d'une donnée
 
@@ -110,6 +114,23 @@ class Data extends BaseModel
         return $row ?: null;
     }
 
+    // Lecture de l'activité selon l'user
+    public static function getOneDataUser($user_id): ?object
+{
+    $sql = 'SELECT * FROM `data` WHERE `user_id` = :user_id ORDER BY `data_id` DESC LIMIT 1;';
+    $stmt = Database::connect()->prepare($sql);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+    // Si aucune donnée n'est trouvée, renvoyer null
+    if (!$result) {
+        return null;
+    }
+
+    return $result;
+}
+
     // Modifier des données
 
     public function updateData(): bool
@@ -125,7 +146,7 @@ class Data extends BaseModel
         return $stmt->execute();
     }
 
-    // Supprimer des données
+    // Supprimer des données de l'id sélectionné
 
     public static function deleteData(int $data_id): bool
     {
@@ -134,5 +155,14 @@ class Data extends BaseModel
         $stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    // Supprimer toutes les données d'un utilisateur
+    public static function deleteDataByUserId($user_id): bool 
+    {
+        $sql = 'DELETE FROM `data` WHERE `user_id` = :user_id;';
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        return $stmt->execute();
+}
 }
 ?>

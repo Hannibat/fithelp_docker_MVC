@@ -2,8 +2,7 @@
 
 
 try {
-    $bodyPartModel = new BodyPart();
-    $body_parts = $bodyPartModel->getAllBodyParts();
+    $body_parts = BodyPart::getAllBodyParts();
     // Si les données du formulaire ont été transmises
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Récupération, nettoyage et validation des données

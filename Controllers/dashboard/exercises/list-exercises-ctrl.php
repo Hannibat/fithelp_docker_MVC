@@ -3,16 +3,13 @@
 
 try {
     $user = $_SESSION['user'];
-
-    // Instances des modèles
-    $bodyPartModel = new BodyPart();
     
     // Récupération des données
     $body_parts = BodyPart::getAllBodyParts();
     $exercises = Exercise::getAllExercises();
 
 } catch (\PDOException $e) {
-    echo sprintf('la récupération des catégories a échoué avec le message %s', $e->getMessage());
+    echo sprintf('la récupération des exercices a échoué avec le message %s', $e->getMessage());
     die;
 }
 

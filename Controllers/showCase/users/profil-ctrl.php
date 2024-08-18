@@ -20,7 +20,16 @@ try {
     // Vérifier si aujourd'hui est l'anniversaire
     $isBirthday = ($birthDay == $todayDay && $birthMonth == $todayMonth);
 
-    $datas = Data::getAllData();
+    // Récupération de toutes les données poids et taille selon l'id de l'utilisateur
+    $datasUser = Data::getAllData($user_id) ?? [];
+
+    // Récupération des dernières données ajoutées en taille et poids par l'utilisateur
+    $lastDataUser = Data::getOneDataUser($user_id) ?? '';
+
+    // Récupération de la dernière donnée ajoutée de niveau d'activité existant par l'utilisateur
+    $lvl_act = Calorie::getOneLvlActUser($user_id) ?? '';
+    // Initialiser la variable $calorie_calculate_id si elle existe déjà
+    // $calorie_calculate_id = $lvl_act ? $lvl_act->calorie_calculate_id : null;
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $weight = filter_input(INPUT_POST, 'weight', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -65,8 +74,8 @@ try {
 
         
     }
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $activityLevel = filter_input(INPUT_POST, 'activity', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $error = [];
 
@@ -77,19 +86,29 @@ try {
         $error['activityLevel'] = 'La valeur n\'est pas correcte.';
     }
     if (empty($error)) {
-        // Instance du modèle
         $calorieModel = new Calorie(
             lvl_act: $activityLevel,
             user_id: $user_id
         );
-
-        if ($calorieModel->addCalorieCalculate()) {
+    
+        if ($calorieModel->addLvlAct()) {
             
         } else {
-            $error['data'] = "Erreur lors de l'ajout du poids et de la taille.";
+            $error['data'] = "Erreur lors de l'ajout du niveau d'activité.";
         }
     }
 
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if($user_id) {
+            $deleteUser = User::deleteUser($user_id);
+            $deleteUserData = Data::deleteDataByUserId($user_id);
+            $deleteUserCalories = Calorie::deleteLvlActByUserId($user_id);
+            if($deleteUser && $deleteUserData && $deleteUserCalories) {
+                redirectToRoute('showCase/home');
+                die;
+            }
+        }
+    }
 }
 } catch (\PDOException $e) {
     echo sprintf('La récupération de l\'utilisateur a échoué avec le message %s', $e->getMessage());
@@ -98,4 +117,4 @@ try {
 
 $title = "Profil";
 
-renderView('showCase/users/profil', compact('title', 'user', 'formattedBirthdate', 'isBirthday', 'datas'));
+renderView('showCase/users/profil', compact('title', 'user', 'formattedBirthdate', 'isBirthday', 'datasUser', 'lvl_act','lastDataUser'));

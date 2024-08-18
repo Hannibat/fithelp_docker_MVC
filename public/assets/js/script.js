@@ -90,7 +90,15 @@ document.getElementById('toggleExercises').addEventListener('click', function() 
     exercisesList.classList.toggle('d-none');
 });
 
-// Empêcher la page de se rafraichier lors de l'envoi du form
-// document.getElementById('imcFormEvent').addEventListener('submit', function(event) {
-//     event.preventDefault();
-// });
+// Pour afficher/masquer la liste des articles
+document.getElementById('toggleArticles').addEventListener('click', function() {
+    var articlesList = document.getElementById('articlesList');
+    articlesList.classList.toggle('d-none');
+});
+
+document.querySelectorAll('.list-group-item-action').forEach(function(item) {
+    item.addEventListener('click', function() {
+        this.classList.toggle('active'); 
+    });
+});
+

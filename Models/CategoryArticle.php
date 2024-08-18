@@ -55,23 +55,22 @@ class CategoryArticle extends BaseModel
 
     // Lecture une catégorie
 
-    public function getOneCategoryArticle(): object 
+    public static function getOneCategoryArticle($category_article_id): object 
     {
         $sql = 'SELECT * FROM `types_articles` WHERE `category_article_id` = :category_article_id;';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':category_article_id', $this->category_article_id, PDO::PARAM_INT);
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':category_article_id', $category_article_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch();
     }
 
     // Lecture liste des catégories
 
-    public function getAllCategoriesArticles(): array 
+    public static function getAllCategoriesArticles(): array 
     {
         $sql = 'SELECT * FROM `types_articles`;';
-        $stmt = $this->db->query($sql);
-        $listCategories = $stmt->fetchAll();
-        return $listCategories;
+        $stmt = Database::connect()->query($sql);
+        return $stmt->fetchAll();
     }
 
     // Mettre à jour une catégorie
@@ -80,18 +79,18 @@ class CategoryArticle extends BaseModel
     {
         $sql = 'UPDATE `types_articles` SET `category_name` = :category_name WHERE `category_article_id` = :category_article_id;';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':category_name', $this->category_name);
+        $stmt->bindValue(':category_name', $this->category_name, PDO::PARAM_STR);
         $stmt->bindValue(':category_article_id', $this->category_article_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
     // Supprimer une catégorie
 
-    public function deleteCategoryArticle(): bool 
+    public static function deleteCategoryArticle($category_article_id): bool 
     {
         $sql = 'DELETE FROM `types_articles` WHERE `category_article_id` = :category_article_id;';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':category_article_id', $this->category_article_id, PDO::PARAM_INT);
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':category_article_id', $category_article_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

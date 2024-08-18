@@ -35,12 +35,12 @@
                         <h5 class="card-title"><?= $exercise->title ?></h5>
                         <h6 class="card-subtitle text-muted"><?= $exercise->body_part ?></h6>
                         <?php if ($user->role == 1) : ?>
-                            <form class="delete-exercise" action="" method="GET" class="row justify-content-around px-1">
+                            <form action="" method="POST" class="row justify-content-around px-1">
                                 <div class="col-7 d-flex justify-content-center px-1">
                                     <a class="btn btn-warning w-100" href="?page=exercises/update-exercise&exercise_id=<?= htmlspecialchars($exercise->exercise_id) ?>">Modifier</a>
                                 </div>
                             </form>
-                            <form action="" class="row justify-content-around px-1" method="GET">
+                            <form action="?page=exercises/delete-exercise" class="row justify-content-around px-1" method="POST">
                                 <div class="col-7 d-flex justify-content-center px-1">
                                     <input type="hidden" name="page" value="exercises/delete-exercise">
                                     <input type="hidden" name="exercise_id" value="<?= htmlspecialchars($exercise->exercise_id) ?>">

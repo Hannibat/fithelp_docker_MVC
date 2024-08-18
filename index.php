@@ -9,6 +9,8 @@ require_once './Models/Exercise.php';
 require_once './Models/User.php';
 require_once './Models/Data.php';
 require_once './Models/Calorie.php';
+require_once './Models/Article.php';
+require_once './Models/CategoryArticle.php';
 
 
 // helpers
@@ -31,6 +33,17 @@ $pathAdmin = match ($page) {
     'exercises/update-exercise' => 'dashboard/exercises/update-exercise',
     'exercises/delete-exercise' => 'dashboard/exercises/delete-exercise',
 
+    'articles/add-article' => 'dashboard/articles/add-article',
+    'articles/list-articles' => 'dashboard/articles/list-articles',
+    'articles/delete-article' => 'dashboard/articles/delete-article',
+    'articles/update-article' => 'dashboard/articles/update-article',
+
+    'categories-article/add-category-article' => 'dashboard/categories-article/add-category-article',
+    'categories-article/list-categories-article' => 'dashboard/categories-article/list-categories-article',
+    'categories-article/delete-category-article' => 'dashboard/categories-article/delete-category-article',
+    'categories-article/update-category-article' => 'dashboard/categories-article/update-category-article',
+
+
     'users/signup' => 'showCase/users/signup',
     'users/signin' => 'showCase/users/signin',
     'users/signout' => 'showCase/users/signout',
@@ -49,8 +62,10 @@ $pathUser = match ($page) {
     
     'users/profil' => 'showCase/users/profil',
 
+    'articles/list-articles' => 'dashboard/articles/list-articles',
+
+
     'exercises/list-exercises' => 'dashboard/exercises/list-exercises',
-    'users/detail-ex' => 'showCase/users/detail-ex',
 
     default => '404'
 };
@@ -60,6 +75,8 @@ $pathPublic = match ($page) {
 
     'users/signup' => 'showCase/users/signup',
     'users/signin' => 'showCase/users/signin',
+
+    'articles/list-articles' => 'dashboard/articles/list-articles',
 
     default => '404'
 };

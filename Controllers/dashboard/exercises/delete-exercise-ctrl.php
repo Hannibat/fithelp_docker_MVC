@@ -1,10 +1,10 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['exercise_id'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         // Récupération du paramètre d'URL correspondant à l'id de l'exercice cliquée
-        $exercise_id = intval(filter_input(INPUT_GET, 'exercise_id', FILTER_SANITIZE_NUMBER_INT));
+        $exercise_id = intval(filter_input(INPUT_POST, 'exercise_id', FILTER_SANITIZE_NUMBER_INT));
         
         if ($exercise_id) {
             $thisExercise = Exercise::getOneExercise($exercise_id);
@@ -24,15 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['exercise_id'])) {
             if ($isOk) {
                 redirectToRoute('exercises/list-exercises');
                 die;
-                //     if ($exerciseModel->deleteExercise()) {
-                //         $success['delete'] = "Exercice supprimé avec succès!";
-                //         redirectToRoute('/exercises/list-exercises');
-                //     } else {
-                //         $error['delete'] = "Erreur lors de la suppression de l'exercice.";
-                //     }
-                // } else {
-                //     $error['delete'] = "Données invalides pour la suppression de l'exercice.";
-                // }
             }
         }
     } catch (\PDOException $e) {
