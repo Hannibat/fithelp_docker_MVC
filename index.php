@@ -47,6 +47,8 @@ $pathAdmin = match ($page) {
     'users/signup' => 'showCase/users/signup',
     'users/signin' => 'showCase/users/signin',
     'users/signout' => 'showCase/users/signout',
+    'users/detail-article' => 'showCase/users/detail-article',
+
 
     'users/profil' => 'showCase/users/profil',
 
@@ -61,6 +63,7 @@ $pathUser = match ($page) {
     'users/signout' => 'showCase/users/signout',
     
     'users/profil' => 'showCase/users/profil',
+    'users/detail-article' => 'showCase/users/detail-article',
 
     'articles/list-articles' => 'dashboard/articles/list-articles',
 
@@ -75,6 +78,7 @@ $pathPublic = match ($page) {
 
     'users/signup' => 'showCase/users/signup',
     'users/signin' => 'showCase/users/signin',
+    'users/detail-article' => 'showCase/users/detail-article',
 
     'articles/list-articles' => 'dashboard/articles/list-articles',
 

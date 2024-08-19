@@ -35,7 +35,7 @@
     <div class="row">
         <?php foreach ($articles as $article) : ?>
             <div class="col-md-4 mb-4">
-                <a href="">
+                <a href="?page=users/detail-article&article_id=<?= htmlspecialchars($article->article_id) ?>">
                     <div class="card" style="width: 100%;">
                         <!-- Image de l'article -->
                         <?php if ($article->picture) : ?>
@@ -70,8 +70,4 @@
     </div>
 <?php endforeach; ?>
 </div>
-
-
-
-
 <?php $main = ob_get_clean(); ?>

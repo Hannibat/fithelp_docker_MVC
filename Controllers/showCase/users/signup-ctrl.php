@@ -8,7 +8,7 @@ $confirmPassword = null;
 $userName = null;
 $birthdate = null;
 $gender = null;
-$errors = [];
+$error = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $error['userName'] = "Le nom ne doit contenir que des lettres et certains accents.";
             }
         }
+        
 
         // Récupérer adresse mail et le nettoyer
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -88,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error["civilityGender"] = "Veuillez renseigner Monsieur ou Madame";
         }
 
-        if (empty($errors)) {
+        if (empty($error)) {
             $password  = password_hash($passwordRegex, PASSWORD_DEFAULT);
 
             // Instanciation de User
@@ -113,4 +114,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-renderView('showCase/users/signup', compact('title', 'errors'));
+renderView('showCase/users/signup', compact('title', 'error'));

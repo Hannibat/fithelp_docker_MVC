@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 <div class="container">
     <div class="row col-md-7 m-3">
-        <form method="post">
+        <form method="post" novalidate>
             <fieldset>
                 <legend><?= $title ?></legend>
 
@@ -9,7 +9,7 @@
                 <div class="mb-1">
                     <label for="user_name" class="form-label mt-4">Nom d'utilisateur<span class="text-danger"> *</span></label>
                     <input type="text" name="user_name" class="form-control <?= isset($error['userName']) ? 'errorField' : '' ?>" id="user_name" required
-                    placeholder="Jean" value="<?= htmlentities($userName ?? '') ?>" minlength="2" maxlength="30" pattern="^[A-Za-z-éèêëàâäôöûüç' -]+$" title="Le nom de l'utilisateur doit contenir des lettres et entre 2 à 30 caractères">
+                    placeholder="Jean" value="<?= htmlentities($userName ?? '') ?>" minlength="2" maxlength="30" pattern="[A-Za-zéèêëàâäôöûüç' \-]{2,30}" title="Le nom de l'utilisateur doit contenir des lettres et entre 2 à 30 caractères">
                     <small id="userNameError" class="form-text error"><?= $error['userName'] ?? '' ?></small>
                 </div>
 

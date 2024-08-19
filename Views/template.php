@@ -46,7 +46,7 @@
                             </li>
                         <?php } ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Articles</a>
+                            <a class="nav-link" href="http://localhost:8001/?page=articles/list-articles">Articles</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Présentation</a>
