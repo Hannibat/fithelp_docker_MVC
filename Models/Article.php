@@ -195,5 +195,19 @@ class Article extends BaseModel
         return $stmt->execute();
     }
 
-    
+    // Récupération des 3 derniers articles pour le home
+public static function getRecentArticles(int $limit = 3): array
+{
+    $sql = 'SELECT `articles`.*, `types_articles`.`category_name` as `category_name`
+            FROM `articles`
+            INNER JOIN `types_articles` ON `articles`.`category_article_id` = `types_articles`.`category_article_id`
+            ORDER BY `articles`.`publication_date` DESC
+            LIMIT :limit;';
+
+    $stmt = Database::connect()->prepare($sql);
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
 }

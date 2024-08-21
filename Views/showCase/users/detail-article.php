@@ -1,39 +1,53 @@
 <?php ob_start(); ?>
-<div class="container text-center">
-    <h1><?= htmlspecialchars($article->title) ?></h1>
+<div class="container article-container my-4">
+    <!-- Article -->
+    <article class="article-content">
+        <!-- Titre de l'article -->
+        <header class="article-header">
+            <h1 class="article-title fs-3"><?= $article->title ?></h1>
+        </header>
 
-    <!-- Introduction -->
-    <div class="intro mb-4">
-        <p><?= nl2br(htmlspecialchars($article->intro)) ?></p>
-    </div>
+        <!-- Introduction de l'article -->
+        <section class="article-intro my-4">
+            <p class="unicode"><?= $article->intro ?></p>
+        </section>
 
-    <?php if ($article->picture) : ?>
-        <img src="<?= UPLOAD_DIR . '/articles/' . htmlspecialchars($article->picture) ?>" alt="<?= htmlspecialchars($article->title) ?>" class="img-fluid mb-4">
-    <?php endif; ?>
+        <!-- Image de l'article (si disponible) -->
+        <?php if ($article->picture) : ?>
+            <figure class="article-image">
+                <img src="<?= UPLOAD_DIR . '/articles/' . $article->picture ?>" alt="<?= $article->title ?>" class="img-fluid mb-1">
+                <figcaption><?= $article->title ?></figcaption>
+            </figure>
+        <?php endif; ?>
 
-    <!-- Contenu principal de l'article -->
-    <div class="content mb-4">
-        <p><?= nl2br(htmlspecialchars($article->containt)) ?></p>
-    </div>
+        <!-- Contenu principal de l'article -->
+        <section class="article-body mb-4">
+            <p class="unicode"><?=  $article->containt ?></p>
+        </section>
 
-    <!-- Conclusion de l'article -->
-    <div class="conclusion">
-        <p><?= nl2br(htmlspecialchars($article->conclusion)) ?></p>
-    </div>
-    <div>
-        <?= 'Article publié le ' . (new DateTime($article->publication_date))->format('d/m/Y') ?>
-    </div>
+        <!-- Conclusion de l'article -->
+        <section class="article-conclusion">
+            <p class="unicode"><?= $article->conclusion ?></p>
+        </section>
+
+        <!-- Publication date -->
+        <footer class="article-footer">
+            <small><?= 'Article publié le ' . (new DateTime($article->publication_date))->format('d/m/Y') ?></small>
+        </footer>
+    </article>
     <!-- Actions pour les administrateurs ou rédacteurs -->
     <?php if ($user->role == 1) : ?>
-        <div class="d-flex justify-content-between mt-4">
-            <a href="?page=articles/update-article&article_id=<?= htmlspecialchars($article->article_id) ?>" class="btn btn-warning">Modifier</a>
+        <div class="d-flex justify-content-around mt-4">
+            <a href="?page=articles/update-article&article_id=<?= $article->article_id ?>" class="btn btn-warning">Modifier</a>
             <form action="?page=articles/delete-article" method="POST">
-                <input type="hidden" name="article_id" value="<?= htmlspecialchars($article->article_id) ?>">
+                <input type="hidden" name="article_id" value="<?= $article->article_id ?>">
                 <button type="submit" class="btn btn-danger">
-                    <i class="fas fa-trash"></i> Supprimer
+                    Supprimer
                 </button>
             </form>
         </div>
     <?php endif; ?>
+    </div>
 </div>
+
 <?php $main = ob_get_clean(); ?>

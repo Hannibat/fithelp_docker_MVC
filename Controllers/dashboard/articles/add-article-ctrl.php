@@ -1,5 +1,4 @@
 <?php
-
 try {
     // Récupération des catégories d'articles
     $categories_article = CategoryArticle::getAllCategoriesArticles();
@@ -36,7 +35,7 @@ try {
         // Gestion du fichier image
         $picture = $_FILES['file'];
         $sizeMax = 2 * 1024 * 1024;
-        $extensions = ['png', 'jpg', 'jpeg']; 
+        $extensions = ['png', 'jpg', 'jpeg', 'webp']; 
         $uploadDir = __DIR__ . '/../../../public/uploads/articles/'; 
 
         $fileName = basename($picture['name']);

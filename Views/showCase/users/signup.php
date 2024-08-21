@@ -1,9 +1,10 @@
 <?php ob_start(); ?>
 <div class="container">
     <div class="row col-md-7 m-3">
-        <form method="post" novalidate>
+        <form method="post">
             <fieldset>
                 <legend><?= $title ?></legend>
+
 
                 <div><span class="text-danger">Les champs * sont obligatoires</span></div>
                 <div class="mb-1">

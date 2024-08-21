@@ -46,7 +46,7 @@
                 <!-- Contenu de la carte -->
                 <div class="card-body">
                     <h5 class="card-title"><?= htmlspecialchars($article->title) ?></h5>
-                    <p class="card-text"><?= htmlspecialchars($article->intro) ?></p>
+                    <p class="card-text text-intro-card"><?= htmlspecialchars_decode($article->intro) ?></p>
                     <div class="d-flex justify-content-between align-items-center">
                         <!-- Catégorie de l'article -->
                         <div class="btn btn-primary">

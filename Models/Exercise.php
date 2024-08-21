@@ -182,11 +182,11 @@ class Exercise extends BaseModel
     }
 
     // Modifier un exercice
-
     public function updateExercise(): bool
     {
         $sql = 'UPDATE `exercises` 
-                SET `title` = :title, `intro` = :intro, `position` = :position, `movement` = :movement, `image` = :image, `targeted_muscles` = :targeted_muscles, `body_part_id` = :body_part_id  
+                SET `title` = :title, `intro` = :intro, `position` = :position, `movement` = :movement, 
+                `image` = :image, `targeted_muscles` = :targeted_muscles, `body_part_id` = :body_part_id  
                 WHERE `exercise_id` = :exercise_id;';
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);
@@ -201,7 +201,6 @@ class Exercise extends BaseModel
     }
 
     // Supprimer un exercice
-
     public static function deleteExercise($exercise_id): bool
     {
         $sql = 'DELETE FROM `exercises` WHERE `exercise_id` = :exercise_id;';

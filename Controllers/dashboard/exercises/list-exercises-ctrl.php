@@ -6,6 +6,7 @@ try {
     
     // Récupération des données
     $body_parts = BodyPart::getAllBodyParts();
+    
     $exercises = Exercise::getAllExercises();
 
 } catch (\PDOException $e) {

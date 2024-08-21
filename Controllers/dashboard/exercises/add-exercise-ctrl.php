@@ -1,44 +1,52 @@
 <?php
 
-
+$error = [];
+$success = [];
 try {
+
     $body_parts = BodyPart::getAllBodyParts();
+
     // Si les données du formulaire ont été transmises
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Récupération, nettoyage et validation des données
+
+        // Récupération, nettoyage et validation du titre
         $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+        if (empty($title)) {
+            $error['title'] = 'Ce champ est obligatoire !';
+        } else {
+            $titleRegex = filter_var($title, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/' . REGEX_NAME . '/')));
+            if (!$titleRegex) {
+                $error['title'] = 'Le nom n\'est pas valide, il faut des lettres minuscules ou majuscules';
+            }
+        }
+
         $intro = filter_input(INPUT_POST, 'intro', FILTER_SANITIZE_SPECIAL_CHARS);
         $position = filter_input(INPUT_POST, 'position', FILTER_SANITIZE_SPECIAL_CHARS);
         $movement = filter_input(INPUT_POST, 'movement', FILTER_SANITIZE_SPECIAL_CHARS);
         $targeted_muscles = filter_input(INPUT_POST, 'targeted_muscles', FILTER_SANITIZE_SPECIAL_CHARS);
         $body_part_id = intval(filter_input(INPUT_POST, 'body_part_id', FILTER_SANITIZE_NUMBER_INT));
 
-        $error = [];
-
-        if (!$title) {
-            $error['title'] = 'Ce champ est obligatoire!';
-        }
         if (!$intro) {
-            $error['intro'] = 'Ce champ est obligatoire!';
+            $error['intro'] = 'Ce champ est obligatoire !';
         }
         if (!$position) {
-            $error['position'] = 'Ce champ est obligatoire!';
+            $error['position'] = 'Ce champ est obligatoire !';
         }
         if (!$movement) {
-            $error['movement'] = 'Ce champ est obligatoire!';
+            $error['movement'] = 'Ce champ est obligatoire !';
         }
         if (!$targeted_muscles) {
-            $error['targeted_muscles'] = 'Ce champ est obligatoire!';
+            $error['targeted_muscles'] = 'Ce champ est obligatoire !';
         }
         if (!$body_part_id) {
-            $error['body_part_id'] = 'Ce champ est obligatoire!';
+            $error['body_part_id'] = 'Ce champ est obligatoire !';
         }
 
         // Si pas d'erreur, procéder à l'ajout
         $picture = $_FILES['file'];
         // Configuration des contraintes de téléchargement
         $sizeMax = 2 * 1024 * 1024; // 2 MB
-        $extensions = ['png', 'jpg', 'jpeg', 'gif'];
+        $extensions = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
         $uploadDir = __DIR__ . '/../../../public/uploads/exercises/';
 
         // Récupération des informations du fichier
@@ -74,7 +82,7 @@ try {
             }
         }
 
-        // Si pas d'erreur, procéder à l'ajout de l'exercise
+        // Si pas d'erreur, procéder à l'ajout de l'exercice
         if (empty($error)) {
             // Instance du modèle
             $exerciseModel = new Exercise(
@@ -88,10 +96,11 @@ try {
             );
 
             if ($exerciseModel->addExercise()) {
+                $_SESSION['flash_message'] = "L'exercice a été ajouté avec succès.";
                 header('Location: /?page=exercises/list-exercises');
                 exit();
             } else {
-                $error['name'] = "Erreur lors de l'ajout de l'exercise.";
+                $error['name'] = "Erreur lors de l'ajout de l'exercice.";
             }
         }
     }
@@ -102,4 +111,4 @@ try {
 
 $title = "Ajouter un exercice";
 
-renderView('dashboard/exercises/add-exercise', compact('title','body_parts'));
+renderView('dashboard/exercises/add-exercise', compact('title', 'body_parts', 'error','success'));

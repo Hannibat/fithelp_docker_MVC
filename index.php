@@ -48,6 +48,8 @@ $pathAdmin = match ($page) {
     'users/signin' => 'showCase/users/signin',
     'users/signout' => 'showCase/users/signout',
     'users/detail-article' => 'showCase/users/detail-article',
+    'users/detail-exercise' => 'showCase/users/detail-exercise',
+
 
 
     'users/profil' => 'showCase/users/profil',
@@ -64,6 +66,7 @@ $pathUser = match ($page) {
     
     'users/profil' => 'showCase/users/profil',
     'users/detail-article' => 'showCase/users/detail-article',
+    'users/detail-exercise' => 'showCase/users/detail-exercise',
 
     'articles/list-articles' => 'dashboard/articles/list-articles',
 

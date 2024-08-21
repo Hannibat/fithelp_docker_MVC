@@ -19,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             // Appel de la méthode delete exercice
             $isOk = Exercise::deleteExercise($exercise_id);
-
             // Si la méthode a retourné "true", alors on redirige vers la liste
             if ($isOk) {
                 redirectToRoute('exercises/list-exercises');
