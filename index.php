@@ -22,9 +22,11 @@ session_start();
 // Import des contrôleurs
 
 $page = $_GET['page'] ?? '';
+//var_dump($page);
 
 $page = filter_var($page, FILTER_SANITIZE_SPECIAL_CHARS);
-
+//var_dump($page);
+//die;
 $pathAdmin = match ($page) {
     '','showCase/home' => 'showCase/home',
 

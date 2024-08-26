@@ -5,14 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/public/assets/font/font.css">
     <link rel="stylesheet" href="/public/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <title>Fithelp</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <!-- Navbar responsive -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -102,7 +101,7 @@
         <?= $main ?>
     </main>
 
-    <footer>
+    <footer class="mt-auto">
         <!-- footer mobile -->
         <div class="container-fluid bg-iron d-md-none">
             <div class="row text-center align-items-center justify-content-between py-3">
@@ -110,7 +109,7 @@
                     <div>Contact</div>
                 </div>
                 <div class="col-4 text-white">
-                    <a href="https://instagram.com" aria-label="Instagram">
+                    <a href="https://www.instagram.com/coach_flo.flex/" aria-label="Instagram">
                         <img src="/public/assets/img/socialinsta.png" alt="logo instagram" width="35" height="35">
                     </a>
                 </div>
@@ -131,18 +130,14 @@
 
         <!-- Footer pour écrans moyens et grands -->
         <div class="container-fluid bg-iron d-none d-md-block">
-            <!-- Section supérieure -->
             <div class="row text-center align-items-center justify-content-around py-3">
-                <!-- Section Contact -->
                 <div class="col-md-4 text-white">
                     <address>
                         <div>Me contacter</div>
-                        <!-- Icône Formulaire -->
                         <a href="#contactForm" aria-label="Formulaire Contact">
                             <img src="/public/assets/img/contact-icon.png" alt="icône contact" width="50" height="50" class="mt-3 mx-2">
                         </a>
-                        <!-- Icône Instagram -->
-                        <a href="#" aria-label="Instagram">
+                        <a href="https://www.instagram.com/coach_flo.flex/" aria-label="Instagram">
                             <img src="/public/assets/img/socialinsta.png" alt="logo Instagram" width="50" height="50" class="mt-3 mx-2">
                         </a>
                     </address>

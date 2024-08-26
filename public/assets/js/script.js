@@ -1,3 +1,15 @@
+// Sélectionner partie du corps
+document.addEventListener('DOMContentLoaded', function() {
+    var bodyPartSelect = document.getElementById('body_part_id');
+    if (bodyPartSelect) {
+        bodyPartSelect.addEventListener('change', function() {
+            document.getElementById('categoryFilterForm').submit();
+        });
+    } else {
+        console.error("L'élément avec l'ID 'body_part_id' n'a pas été trouvé dans le DOM.");
+    }
+});
+
 // utilisation pour les input cachés pour la modification d'un exercice 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -22,10 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Expérience utilisateur pour le mot de passe dans formulaire
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const passwordInput = document.getElementById('password');
-        const confirmPasswordInput = document.getElementById('confirmPassword');
+document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
 
+    if (passwordInput) {
         const passwordPattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 
         passwordInput.addEventListener('input', function() {
@@ -37,7 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 passwordInput.classList.add('errorField');
             }
         });
+    }
 
+    if (confirmPasswordInput) {
         confirmPasswordInput.addEventListener('input', function() {
             if (confirmPasswordInput.value === passwordInput.value && passwordPattern.test(passwordInput.value)) {
                 confirmPasswordInput.classList.remove('errorField');
@@ -47,25 +62,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 confirmPasswordInput.classList.add('errorField');
             }
         });
-    });
+    }
+});
+
 
 // Dans profil pour calculer son imc, cacher la div et ouvrir avec le bouton
 // Pour modifier le + en - lorsqu'on appuie
 
-document.getElementById('toggleIMCForm').addEventListener('click', function() {
-    var form = document.getElementById('imcForm');
-    var symbol = document.getElementById('toggleSymbol');
+document.addEventListener('DOMContentLoaded', function() {
+    var toggleButton = document.getElementById('toggleIMCForm');
+    if (toggleButton) { // Vérification si l'élément existe
+        toggleButton.addEventListener('click', function() {
+            var form = document.getElementById('imcForm');
+            var symbol = document.getElementById('toggleSymbol');
 
-    if (form.classList.contains('d-none')) {
-        form.classList.remove('d-none');
-        form.style.opacity = 1;
-        symbol.textContent = '-'; // Change le symbole à -
+            if (form.classList.contains('d-none')) {
+                form.classList.remove('d-none');
+                form.style.opacity = 1;
+                symbol.textContent = '-'; // Change le symbole à -
+            } else {
+                form.classList.add('d-none');
+                form.style.opacity = 0;
+                symbol.textContent = '+'; // Change le symbole à +
+            }
+        });
     } else {
-        form.classList.add('d-none');
-        form.style.opacity = 0;
-        symbol.textContent = '+'; // Change le symbole à +
+        console.error("L'élément avec l'ID 'toggleIMCForm' n'a pas été trouvé dans le DOM.");
     }
 });
+
 
 // Même chose vec le calcul des besoins caloriques journalier
 
@@ -101,4 +126,5 @@ document.querySelectorAll('.list-group-item-action').forEach(function(item) {
         this.classList.toggle('active'); 
     });
 });
+
 

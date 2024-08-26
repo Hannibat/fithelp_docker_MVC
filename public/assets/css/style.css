@@ -295,11 +295,6 @@ a {
 
 /* Card pour les articles */
 
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-    width: 100%;
-}
 
 .text-intro-card {
     display: -webkit-box;
@@ -365,4 +360,31 @@ article {
 
 .unicode {
     white-space: pre-wrap;
+}
+
+/* Détail exercice */
+
+.exercise-title {
+    color: #393E42;
+}
+
+.btn-add:hover {
+    color: white !important;
+    background-color: #393E42 !important;
+}
+
+/* Détail exercice */
+
+.figImage {
+    font-size: 0.75rem; /* Taille de police réduite */
+    text-align: center; /* Centre le texte sous l'image */
+    margin-top: 0.5rem; /* Espace au-dessus de la légende */
+    color: #6c757d; /* Couleur de texte grisée pour la légende */
+}
+
+.title {
+    font-size: 1.15rem; /* Taille de police normale */
+    white-space: nowrap; /* Empêche le retour à la ligne */
+    overflow: hidden; /* Cache le texte qui dépasse */
+    text-overflow: ellipsis; /* Ajoute des points de suspension */
 }

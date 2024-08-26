@@ -21,8 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $isOk = Exercise::deleteExercise($exercise_id);
             // Si la méthode a retourné "true", alors on redirige vers la liste
             if ($isOk) {
-                redirectToRoute('exercises/list-exercises');
-                die;
+                $_SESSION['flash_message'] = "L'exercice a été supprimé avec succès.";
+                header('Location: /?page=exercises/list-exercises');
+                exit();
             }
         }
     } catch (\PDOException $e) {

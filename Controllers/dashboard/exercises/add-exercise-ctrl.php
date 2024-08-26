@@ -16,7 +16,7 @@ try {
         } else {
             $titleRegex = filter_var($title, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '/' . REGEX_NAME . '/')));
             if (!$titleRegex) {
-                $error['title'] = 'Le nom n\'est pas valide, il faut des lettres minuscules ou majuscules';
+                $error['title'] = 'Le nom n\'est pas valide, il faut des lettres minuscules ou majuscules et entre 2 et 40 caractères';
             }
         }
 
@@ -26,27 +26,28 @@ try {
         $targeted_muscles = filter_input(INPUT_POST, 'targeted_muscles', FILTER_SANITIZE_SPECIAL_CHARS);
         $body_part_id = intval(filter_input(INPUT_POST, 'body_part_id', FILTER_SANITIZE_NUMBER_INT));
 
-        if (!$intro) {
+        if (empty($intro)) {
             $error['intro'] = 'Ce champ est obligatoire !';
         }
-        if (!$position) {
+        if (empty($position)) {
             $error['position'] = 'Ce champ est obligatoire !';
         }
-        if (!$movement) {
+        if (empty($movement)) {
             $error['movement'] = 'Ce champ est obligatoire !';
         }
-        if (!$targeted_muscles) {
+        if (empty($targeted_muscles)) {
             $error['targeted_muscles'] = 'Ce champ est obligatoire !';
         }
-        if (!$body_part_id) {
+        if (empty($body_part_id)) {
             $error['body_part_id'] = 'Ce champ est obligatoire !';
         }
 
-        // Si pas d'erreur, procéder à l'ajout
+        // Utilisation superglobale $_FILE
         $picture = $_FILES['file'];
         // Configuration des contraintes de téléchargement
         $sizeMax = 2 * 1024 * 1024; // 2 MB
-        $extensions = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
+        $extensions = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'webm'];
+        // Direction de l'uplaod
         $uploadDir = __DIR__ . '/../../../public/uploads/exercises/';
 
         // Récupération des informations du fichier
@@ -62,7 +63,7 @@ try {
         } else {
             // Validation de l'extension du fichier
             if (!in_array($fileExtension, $extensions)) {
-                $error['file'] = "Format de fichier non autorisé. Seuls les formats PNG, JPG et JPEG sont autorisés.";
+                $error['file'] = "Format de fichier non autorisé. Seuls les formats PNG, JPG, JPEG, GIF, WEBP et WEBM sont autorisés.";
             }
 
             // Validation de la taille du fichier
@@ -76,7 +77,8 @@ try {
                 $destination = $uploadDir . $newFileName;
                 if (move_uploaded_file($fileTmpName, $destination)) {
                     $success['file'] = "Fichier téléchargé avec succès!";
-                } else {
+                } 
+                    else {
                     $error['file'] = "Erreur lors du déplacement du fichier.";
                 }
             }

@@ -18,7 +18,7 @@ class Exercise extends BaseModel
      * @param string $targeted_muscles correspond aux muscles ciblés par l'exercice
      * @param int $body_part_id correspond à l'id de la partie du corps, c'est une clé étrangère
      */
-    
+
 
     public function __construct(
         private ?int $exercise_id = null,
@@ -144,14 +144,41 @@ class Exercise extends BaseModel
 
     // Lecture de tous les exercices
 
-    public static function getAllExercises(): array
+    public static function getAllExercises(?int $categoryFilter = null,?string $searchTerm = null): array
     {
         $sql = 'SELECT `exercises`.*, `body_parts`.`body_part` as `body_part` 
             FROM `exercises`
-            INNER JOIN `body_parts` ON `exercises`.`body_part_id` = `body_parts`.`body_part_id`;';
-        $stmt = Database::connect()->query($sql);
+            INNER JOIN `body_parts` ON `exercises`.`body_part_id` = `body_parts`.`body_part_id`';
+
+        // Ajoutez la condition de filtrage si un filtre est passé
+        if ($categoryFilter !== null) {
+            $sql .= ' WHERE `exercises`.`body_part_id` = :categoryFilter';
+        }
+    
+        // Ajoutez la condition de recherche si un terme de recherche est passé
+        if ($searchTerm !== null) {
+        $sql .= ' AND (`vehicles`.`brand` LIKE :search OR `vehicles`.`model` LIKE :search)';
+    }
+
+        $sql .= ' ORDER BY `exercises`.`title` ASC';
+
+        $stmt = Database::connect()->prepare($sql);
+
+        // Lie le paramètre si un filtre est passé
+        if ($searchTerm !== null) {
+            $searchParam = '%' . $searchTerm . '%';
+            $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
+        }
+
+        if ($categoryFilter !== null) {
+            $stmt->bindValue(':categoryFilter', $categoryFilter, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
         return $stmt->fetchAll();
     }
+
+
 
     // Lecture des exercices d'une seule partie du corps
 
@@ -232,5 +259,3 @@ class Exercise extends BaseModel
         return $stmt->execute();
     }
 }
-
-?>

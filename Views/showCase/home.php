@@ -61,7 +61,7 @@
                     </span>
                 </div>
                 <div class="col-12 d-flex justify-content-end my-3">
-                    <a href="#" class="me-3 text-white">Lire la suite</a>
+                    <a href="#" class="me-3 text-white">Lire la suite...</a>
                 </div>
             </div>
         </div>

@@ -1,1 +1,11 @@
 faire les fonts
+
+faire delete en null
+
+faire modal de contact
+
+remplacer jpg et webp
+
+caratcères spéciaux pour mot de passe
+
+regarder d'atail avec htmlspecialchars
