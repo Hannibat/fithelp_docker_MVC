@@ -35,7 +35,6 @@
     for (let exercise of favoriteExercises) {
         const heart = exercise.querySelector('.heart');
         const exerciseId = heart.id;
-        console.log(exerciseId);
         heart.addEventListener('click',() => toggleFavorite(exerciseId, heart))
     }
 }
