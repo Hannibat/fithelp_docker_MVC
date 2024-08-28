@@ -26,9 +26,12 @@
                         <a href="?page=articles/list-articles" class="list-group-item list-group-item-action">Liste des articles</a>
                     </div>
                     <hr class="m-0">
-                    <a href="programs.php" class="list-group-item list-group-item-action">Programmes</a>
-                    <hr class="m-0">
-                    <a href="users.php" class="list-group-item list-group-item-action">Utilisateurs</a>
+                    <button class="list-group-item list-group-item-action" id="toggleUsers">
+                        Utilisateurs
+                    </button>
+                    <div id="usersList" class="d-none pl-3">
+                        <a href="?page=users/list-users" class="list-group-item list-group-item-action">Liste des utilisateurs</a>
+                    </div>
                 </div>
             </div>
         <?php endif; ?>
@@ -48,6 +51,41 @@
                     <?php endif; ?>
                 </div>
             </div>
+
+            <!-- Exercices mis en favoris -->
+<div class="profile-container p-3 ps-4 shadow-lg rounded bg-light mb-4">
+    <h3>Exercices en favoris</h3>
+    <div id="display" class="row">
+        <?php foreach ($exercises as $exercise) : ?>
+            <div class="col-lg-2 col-md-3 col-sm-5">
+                <div class="card mb-4">
+                    <a href="?page=users/detail-exercise&exercise_id=<?= htmlspecialchars($exercise->exercise_id) ?>">
+                        <?php if ($exercise->image) : ?>
+                            <div class="card-img-container">
+                                <img src="public/uploads/exercises/<?= htmlspecialchars($exercise->image) ?>" class="card-img-top img-fluid" alt="<?= htmlspecialchars($exercise->title) ?>">
+                            </div>
+                        <?php endif; ?>
+                    </a>
+                    <div class="card-body pb-0">
+                        <h5 class="card-title title" title="<?= htmlspecialchars($exercise->title) ?>">
+                            <?= htmlspecialchars($exercise->title) ?>
+                        </h5>
+                        <div class="row justify-content-between py-1">
+                            <!-- Icône de favori -->
+                            <div class="col-auto ms-auto favoriteExercise">
+                                <img
+                                    class="heart"
+                                    src="/public/assets/img/heart.png"
+                                    alt="Retirer des favoris"
+                                    id="<?= htmlspecialchars($exercise->exercise_id) ?>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
 
             <!-- Calcul de l'IMC -->
             <div class="profile-container p-3 ps-4 shadow-lg rounded bg-light mb-4">

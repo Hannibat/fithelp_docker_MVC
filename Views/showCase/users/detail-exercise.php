@@ -4,19 +4,19 @@
     <article class="exercise-content mx-auto" style="max-width: 800px;">
         <!-- Titre de l'exercice -->
         <header class="exercise-header">
-            <h1 class="exercise-title fs-3 text-center"><?= $exercise->title ?></h1>
+            <h1 class="exercise-title fs-3 text-center"><?= htmlspecialchars_decode($exercise->title) ?></h1>
         </header>
 
         <!-- Introduction de l'exercice -->
         <section class="exercise-intro my-4">
             <h6>Introduction</h6>
-            <p class="unicode"><?= $exercise->intro ?></p>
+            <p class="unicode"><?= htmlspecialchars_decode($exercise->intro) ?></p>
         </section>
 
         <!-- Position de l'exercice -->
         <section class="exercise-body mb-4">
             <h6>La position</h6>
-            <p class="unicode"><?= $exercise->position ?></p>
+            <p class="unicode"><?= htmlspecialchars_decode($exercise->position) ?></p>
         </section>
 
         <!-- Image et Mouvement de l'exercice -->
@@ -25,8 +25,8 @@
             <?php if ($exercise->image) : ?>
                 <div class="col-12 col-md-6 mb-3 mb-md-0 d-flex justify-content-center">
                     <figure class="w-100">
-                        <img src="<?= UPLOAD_DIR . '/exercises/' . $exercise->image ?>" alt="<?= $exercise->title ?>" class="img-fluid">
-                        <figcaption class="text-muted figImage"><?= $exercise->title ?> - Crédit illustration ©Makatserchyk</figcaption>
+                        <img src="<?= UPLOAD_DIR . '/exercises/' . $exercise->image ?>" alt="<?= htmlspecialchars_decode($exercise->title) ?>" class="img-fluid">
+                        <figcaption class="text-muted figImage"><?= htmlspecialchars_decode($exercise->title) ?> - Crédit illustration ©Makatserchyk</figcaption>
                     </figure>
                 </div>
                 <?php endif; ?>
@@ -34,7 +34,7 @@
             <!-- Mouvement de l'exercice -->
             <div class="col-12 col-md-6">
                 <h6>Le mouvement</h6>
-                <p class="unicode"><?= $exercise->movement ?></p>
+                <p class="unicode"><?= htmlspecialchars_decode($exercise->movement) ?></p>
             </div>
         </section>
 

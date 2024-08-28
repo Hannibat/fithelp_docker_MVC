@@ -94,7 +94,7 @@
     
     .btn:hover {
         color: white !important;
-        background-color: #4a8aff !important;
+        background-color: #393E42!important;
     }
     
     /* hero home */
@@ -387,4 +387,113 @@ article {
     white-space: nowrap; /* Empêche le retour à la ligne */
     overflow: hidden; /* Cache le texte qui dépasse */
     text-overflow: ellipsis; /* Ajoute des points de suspension */
+}
+
+/* Styles pour la modal */
+.contact-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.contact-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.contact-modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.contact-modal-close:hover, .contact-modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.contact-modal h2 {
+    text-align: center;
+    color: #333;
+}
+
+.contact-modal form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-modal form div {
+    margin-bottom: 15px;
+}
+
+.contact-modal label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.contact-modal input[type="text"], .contact-modal input[type="email"], .contact-modal textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.contact-modal textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-modal button[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.contact-modal button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Message pour mail */
+.flash-message {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px;
+    background-color: #4CAF50; /* Vert pour succès */
+    color: white;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.flash-error {
+    background-color: #f44336; /* Rouge pour erreur */
+}
+
+/* Liste exercices */
+.heart {
+    cursor: pointer;
 }

@@ -17,6 +17,16 @@
                     <legend><?= $title ?></legend>
                     <?= $errors['email'] ?? '' ?>
                     <?= $errors['auth'] ?? '' ?>
+                    <?php if (isset($error['user'])) : ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?= htmlspecialchars($error['user']) ?>
+                        </div>
+                    <?php elseif (isset($error['login'])) : ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?= htmlspecialchars($error['login']) ?>
+                        </div>
+                    <?php endif; ?>
+
                     <div class="mb-3">
                         <label for="email" class="form-label mt-2">Email</label>
                         <input type="email" name="email" class="form-control" id="email" required aria-describedby="emailHelp" placeholder="Entrez votre email">

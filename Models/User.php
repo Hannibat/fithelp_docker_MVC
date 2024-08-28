@@ -132,14 +132,14 @@ class User extends BaseModel
 
     public static function getAllUsers(): array
     {
-        $sql = 'SELECT * FROM `users`;';
+        $sql = 'SELECT * FROM `users` WHERE `deleted_at` IS NULL;';
         $stmt = Database::connect()->query($sql);
         return $stmt->fetchAll();
     }
 
     // Lecture d'un utilisateur
 
-    public static function getOneUser($user_id): ?array
+    public static function getOneUser($user_id): ?object
     {
         $sql = 'SELECT * FROM `users` WHERE `user_id` = :user_id;';
         $stmt = Database::connect()->prepare($sql);
@@ -170,7 +170,7 @@ class User extends BaseModel
 
     public static function deleteUser($user_id): bool
     {
-        $sql = 'DELETE FROM `users` WHERE `user_id` = :user_id;';
+        $sql = 'UPDATE `users` SET `deleted_at` = NOW() WHERE `user_id` = :user_id;';
         $stmt = Database::connect()->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         return $stmt->execute();

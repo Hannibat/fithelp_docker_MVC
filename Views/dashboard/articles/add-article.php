@@ -19,7 +19,7 @@
                 <div class="form-text text-danger fs-5 text"><?= $error['intro'] ?? '' ?></div>
             </div>
             <div class="col-12 mb-1">
-                <label for="containt" class="form-label"><span class="text-danger">*</span>Paragraph</label>
+                <label for="containt" class="form-label"><span class="text-danger">*</span>Paragraphe</label>
                 <textarea class="form-control" id="containt" name="containt" required></textarea>
                 <div class="form-text text-danger fs-5 text"><?= $error['containt'] ?? '' ?></div>
             </div>

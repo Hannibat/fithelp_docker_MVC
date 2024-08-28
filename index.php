@@ -11,6 +11,7 @@ require_once './Models/Data.php';
 require_once './Models/Calorie.php';
 require_once './Models/Article.php';
 require_once './Models/CategoryArticle.php';
+require_once './Models/Mark.php';
 
 
 // helpers
@@ -29,6 +30,7 @@ $page = filter_var($page, FILTER_SANITIZE_SPECIAL_CHARS);
 //die;
 $pathAdmin = match ($page) {
     '','showCase/home' => 'showCase/home',
+    'showCase/presentation' => 'showCase/presentation',
 
     'exercises/add-exercise' => 'dashboard/exercises/add-exercise',
     'exercises/list-exercises' => 'dashboard/exercises/list-exercises',
@@ -45,6 +47,9 @@ $pathAdmin = match ($page) {
     'categories-article/delete-category-article' => 'dashboard/categories-article/delete-category-article',
     'categories-article/update-category-article' => 'dashboard/categories-article/update-category-article',
 
+    'users/delete-user' => 'dashboard/users/delete-user',
+
+    'users/list-users' => 'dashboard/users/list-users',
 
     'users/signup' => 'showCase/users/signup',
     'users/signin' => 'showCase/users/signin',
@@ -52,6 +57,7 @@ $pathAdmin = match ($page) {
     'users/detail-article' => 'showCase/users/detail-article',
     'users/detail-exercise' => 'showCase/users/detail-exercise',
 
+    'users/update-favorite' => 'showCase/users/update-favorite',
 
 
     'users/profil' => 'showCase/users/profil',
@@ -61,6 +67,7 @@ $pathAdmin = match ($page) {
 
 $pathUser = match ($page) {
     '','showCase/home' => 'showCase/home',
+    'showCase/presentation' => 'showCase/presentation',
 
     'users/signup' => 'showCase/users/signup',
     'users/signin' => 'showCase/users/signin',
@@ -72,6 +79,7 @@ $pathUser = match ($page) {
 
     'articles/list-articles' => 'dashboard/articles/list-articles',
 
+    'users/update-favorite' => 'showCase/users/update-favorite',
 
     'exercises/list-exercises' => 'dashboard/exercises/list-exercises',
 
@@ -80,6 +88,7 @@ $pathUser = match ($page) {
 
 $pathPublic = match ($page) {
     '','showCase/home' => 'showCase/home',
+    'showCase/presentation' => 'showCase/presentation',
 
     'users/signup' => 'showCase/users/signup',
     'users/signin' => 'showCase/users/signin',

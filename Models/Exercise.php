@@ -144,21 +144,37 @@ class Exercise extends BaseModel
 
     // Lecture de tous les exercices
 
-    public static function getAllExercises(?int $categoryFilter = null,?string $searchTerm = null): array
+    public static function getAllExercises(?int $categoryFilter = null, ?string $searchTerm = null, ?int $user_id = null): array
     {
-        $sql = 'SELECT `exercises`.*, `body_parts`.`body_part` as `body_part` 
-            FROM `exercises`
-            INNER JOIN `body_parts` ON `exercises`.`body_part_id` = `body_parts`.`body_part_id`';
+        $sql = 'SELECT 
+    exercises.*, 
+    body_parts.body_part AS body_part,
+    CASE 
+        WHEN EXISTS (
+            SELECT 1 
+            FROM mark 
+            WHERE mark.exercise_id = exercises.exercise_id 
+            AND mark.user_id = :user_id
+        ) THEN TRUE 
+        ELSE FALSE 
+    END AS is_favorite
+    FROM exercises
+    INNER JOIN body_parts ON exercises.body_part_id = body_parts.body_part_id
+    LEFT JOIN mark ON exercises.exercise_id = mark.exercise_id';
 
         // Ajoutez la condition de filtrage si un filtre est passé
-        if ($categoryFilter !== null) {
+        if ($categoryFilter) {
             $sql .= ' WHERE `exercises`.`body_part_id` = :categoryFilter';
         }
-    
+
         // Ajoutez la condition de recherche si un terme de recherche est passé
-        if ($searchTerm !== null) {
-        $sql .= ' AND (`vehicles`.`brand` LIKE :search OR `vehicles`.`model` LIKE :search)';
-    }
+        if ($searchTerm) {
+            if ($categoryFilter) {
+            $sql .= ' AND (`exercises`.`title` LIKE :search)';}
+            else {
+                $sql .= ' WHERE (`exercises`.`title` LIKE :search)';
+            }
+        }
 
         $sql .= ' ORDER BY `exercises`.`title` ASC';
 
@@ -167,17 +183,19 @@ class Exercise extends BaseModel
         // Lie le paramètre si un filtre est passé
         if ($searchTerm !== null) {
             $searchParam = '%' . $searchTerm . '%';
-            $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
+            $stmt->bindValue(':search', $searchParam, PDO::PARAM_STR);
         }
 
         if ($categoryFilter !== null) {
             $stmt->bindValue(':categoryFilter', $categoryFilter, PDO::PARAM_INT);
         }
 
+        if ($user_id !== null) {
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        }
         $stmt->execute();
         return $stmt->fetchAll();
     }
-
 
 
     // Lecture des exercices d'une seule partie du corps

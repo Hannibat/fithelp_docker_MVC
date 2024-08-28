@@ -45,7 +45,7 @@
     <div class="row justify-content-center">
         <!-- Image de présentation -->
         <div class="col-12 col-md-3 d-flex justify-content-center align-items-center mt-3">
-            <img src="/public/assets/img/presentation.jpg" alt="photo du coach en plein exercice" class="img-fluid pb-3">
+            <img src="/public/assets/img/flomuscu.webp" alt="photo du coach en plein exercice" class="img-fluid pb-3">
         </div>
         
         <!-- Texte de présentation -->
@@ -61,7 +61,7 @@
                     </span>
                 </div>
                 <div class="col-12 d-flex justify-content-end my-3">
-                    <a href="#" class="me-3 text-white">Lire la suite...</a>
+                    <a href="http://localhost:8001/?page=showCase/presentation" class="me-3 text-white">Lire la suite...</a>
                 </div>
             </div>
         </div>

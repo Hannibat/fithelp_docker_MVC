@@ -4,7 +4,7 @@ $title = 'Connexion';
 
 $email = null;
 $password = null;
-$errors = [];
+$error = [] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -25,15 +25,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        unset($user->password);
-        $_SESSION['user'] = $user;
-        redirectToRoute('');
+        if($user->deleted_at !== null) {
+            $error['user'] = "Votre compte n'est plus valide, il a été supprimé";
+        } else {
+            unset($user->password);
+            $_SESSION['user'] = $user;
+            redirectToRoute('');
+            die;
+        }
 
     } catch (Exception $ex) {
-        addFlash('danger', $ex->getMessage() );
+        $error['login'] = $ex->getMessage();
     }
 }
 
 $title = "Connexion";
+renderView('showCase/users/signin', compact('title', 'error'));
 
-renderView('showCase/users/signin', compact('title'));

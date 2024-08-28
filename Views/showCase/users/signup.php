@@ -22,12 +22,13 @@
 
                 <div class="mb-1">
                     <label for="password" class="form-label mt-4">Votre mot de passe<span class="text-danger"> *</span></label>
-                    <legend class="text-legend">Veuillez saisir un mot de passe avec minimum 8 caractères et au moins un nombre, une majuscule et une minuscule</legend>
+                    <legend class="text-legend">Veuillez saisir un mot de passe avec minimum 8 caractères et au moins un nombre, une majuscule, une minuscule et un caractère spécial</legend>
                     <input type="password" name="password" class="form-control <?= isset($error['password']) ? 'errorField' : '' ?>" id="password" required 
-                    placeholder="*******" minlength="8" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" title="Veuillez saisir un mot de passe avec minimum 8 caractères et au moins : 
+                    placeholder="*******" minlength="8" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" title="Veuillez saisir un mot de passe avec minimum 8 caractères et au moins : 
                - un nombre
                - une majuscule
-               - une minuscule">
+               - une minuscule
+               - un caractère spécial">
                     <small id="passwordError" class="form-text error"><?= $error['password'] ?? '' ?></small>
                 </div>
 

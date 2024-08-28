@@ -1,11 +1,23 @@
 <?php
 
 try {
+    // Récupération des données
+    $body_parts = BodyPart::getAllBodyParts();
+
+    
     // Récupération de l'utilisateur
     $user = $_SESSION['user'];
     $user_id = $user->user_id;
+    
+    // Appelez la méthode avec les paramètres
+    $exercises = Mark::getAllExercisesForUser($user_id);
+
+    // Appel de la méthode pour obtenir les exercices favoris de l'utilisateur
+    // $exercises = Exercise::getAllExercisesForUser($user_id);
+
     // Récupération de la date de naissance
     $birthdate = $user->birthdate;
+
     // Convertir la date au format français
     $formattedBirthdate = date('d/m/Y', strtotime($birthdate));
 
@@ -98,17 +110,17 @@ try {
         }
     }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if($user_id) {
-            $deleteUser = User::deleteUser($user_id);
-            $deleteUserData = Data::deleteDataByUserId($user_id);
-            $deleteUserCalories = Calorie::deleteLvlActByUserId($user_id);
-            if($deleteUser && $deleteUserData && $deleteUserCalories) {
-                redirectToRoute('showCase/home');
-                die;
-            }
-        }
-    }
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //     if($user_id) {
+    //         $deleteUser = User::deleteUser($user_id);
+    //         $deleteUserData = Data::deleteDataByUserId($user_id);
+    //         $deleteUserCalories = Calorie::deleteLvlActByUserId($user_id);
+    //         if($deleteUser && $deleteUserData && $deleteUserCalories) {
+    //             redirectToRoute('showCase/home');
+    //             die;
+    //         }
+    //     }
+    // }
 }
 } catch (\PDOException $e) {
     echo sprintf('La récupération de l\'utilisateur a échoué avec le message %s', $e->getMessage());
@@ -117,4 +129,4 @@ try {
 
 $title = "Profil";
 
-renderView('showCase/users/profil', compact('title', 'user', 'formattedBirthdate', 'isBirthday', 'datasUser', 'lvl_act','lastDataUser'));
+renderView('showCase/users/profil', compact('title', 'user', 'formattedBirthdate', 'isBirthday', 'datasUser', 'lvl_act','lastDataUser', 'exercises','body_parts'));

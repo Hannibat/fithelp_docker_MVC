@@ -37,33 +37,41 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('password');
     const confirmPasswordInput = document.getElementById('confirmPassword');
+    const passwordPattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
+    // Fonction pour valider le mot de passe
+    function validatePassword() {
+        if (passwordPattern.test(passwordInput.value)) {
+            passwordInput.classList.remove('errorField');
+            passwordInput.classList.add('validField');
+        } else {
+            passwordInput.classList.remove('validField');
+            passwordInput.classList.add('errorField');
+        }
+    }
+
+    // Fonction pour valider la confirmation du mot de passe
+    function validateConfirmPassword() {
+        if (confirmPasswordInput.value === passwordInput.value && passwordPattern.test(passwordInput.value)) {
+            confirmPasswordInput.classList.remove('errorField');
+            confirmPasswordInput.classList.add('validField');
+        } else {
+            confirmPasswordInput.classList.remove('validField');
+            confirmPasswordInput.classList.add('errorField');
+        }
+    }
+
+    // Ajouter les écouteurs d'événements
     if (passwordInput) {
-        const passwordPattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
-
-        passwordInput.addEventListener('input', function() {
-            if (passwordPattern.test(passwordInput.value)) {
-                passwordInput.classList.remove('errorField');
-                passwordInput.classList.add('validField');
-            } else {
-                passwordInput.classList.remove('validField');
-                passwordInput.classList.add('errorField');
-            }
-        });
+        passwordInput.addEventListener('input', validatePassword);
     }
 
     if (confirmPasswordInput) {
-        confirmPasswordInput.addEventListener('input', function() {
-            if (confirmPasswordInput.value === passwordInput.value && passwordPattern.test(passwordInput.value)) {
-                confirmPasswordInput.classList.remove('errorField');
-                confirmPasswordInput.classList.add('validField');
-            } else {
-                confirmPasswordInput.classList.remove('validField');
-                confirmPasswordInput.classList.add('errorField');
-            }
-        });
+        confirmPasswordInput.addEventListener('input', validateConfirmPassword);
     }
 });
+
+
 
 
 // Dans profil pour calculer son imc, cacher la div et ouvrir avec le bouton
@@ -118,6 +126,12 @@ document.getElementById('toggleExercises').addEventListener('click', function() 
 // Pour afficher/masquer la liste des articles
 document.getElementById('toggleArticles').addEventListener('click', function() {
     var articlesList = document.getElementById('articlesList');
+    articlesList.classList.toggle('d-none');
+});
+
+// Pour afficher/masquer la liste des utilisateurs
+document.getElementById('toggleUsers').addEventListener('click', function() {
+    var articlesList = document.getElementById('usersList');
     articlesList.classList.toggle('d-none');
 });
 

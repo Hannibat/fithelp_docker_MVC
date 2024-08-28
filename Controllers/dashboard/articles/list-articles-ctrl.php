@@ -2,7 +2,7 @@
 
 
 try {
-    $user = $_SESSION['user'];
+    $user = $_SESSION['user'] ?? '';
 
     // Récupération des données
     $categories_articles = CategoryArticle::getAllCategoriesArticles();

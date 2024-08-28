@@ -1,7 +1,7 @@
 <?php
 
 define('REGEX_NAME',"^[A-Za-zÉéèêëàâäôöûüç' -]+$");
-define('REGEX_PASSWORD','^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+define('REGEX_PASSWORD', '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$');
 define('REGEX_BIRTHDATE','^\d{4}(-\d{2}){2}$');
 define('UPLOAD_DIR', 'public/uploads');
 

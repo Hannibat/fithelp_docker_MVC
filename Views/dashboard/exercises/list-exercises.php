@@ -26,8 +26,10 @@
         </div>
 
         <div class="col-md-4 my-md-0 my-2">
-            <form id="search-form" class="form-inline" method="$_GET">
+            <form id="search-form" class="form-inline" method="GET">
                 <div class="input-group w-100">
+                    <input type="hidden" value="exercises/list-exercises" name="page">
+
                     <input type="text" class="form-control" name="search" placeholder="Rechercher un exercice">
                     <button type="submit" class="btn btn-primary input-group-text">
                         <i class="fas fa-search"></i>
@@ -52,25 +54,37 @@
                     <a href="?page=users/detail-exercise&exercise_id=<?= $exercise->exercise_id ?>">
                         <?php if ($exercise->image) : ?>
                             <div class="card-img-container">
-                                <img src="public/uploads/exercises/<?= $exercise->image ?>" class="card-img-top img-fluid" alt="<?= $exercise->title ?>">
+                                <img src="public/uploads/exercises/<?= htmlspecialchars($exercise->image) ?>" class="card-img-top img-fluid" alt="<?= htmlspecialchars($exercise->title) ?>">
                             </div>
                         <?php endif; ?>
                     </a>
-                    <div class="card-body">
-                        <h5 class="card-title title" title="<?= $exercise->title ?>"><?= $exercise->title ?></h5>
-                        <h6 class="card-subtitle text-muted"><?= $exercise->body_part ?></h6>
-                        <?php if ($user->role == 1) : ?>
-                            <form action="?page=exercises/delete-exercise" class="row justify-content-end px-1" method="POST">
-                                <div class="col-7 d-flex justify-content-end px-1">
-                                    <input type="hidden" name="page" value="exercises/delete-exercise">
-                                    <input type="hidden" name="exercise_id" value="<?= $exercise->exercise_id ?>">
-                                    <button type="submit" class="btn btn-danger mt-1 d-flex justify-content-around">
-                                        <span></span>
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                    <div class="card-body pb-0">
+                        <h5 class="card-title title" title="<?= htmlspecialchars($exercise->title) ?>">
+                            <?= htmlspecialchars($exercise->title) ?>
+                        </h5>
+                        <h6 class="card-subtitle text-muted"><?= htmlspecialchars($exercise->body_part) ?></h6>
+                        <div class="row justify-content-between data-fetch-js py-1">
+                            <!-- Formulaire de suppression d'exercice -->
+                            <?php if ($user->role == 1) : ?>
+                                <div class="col">
+                                    <form action="?page=exercises/delete-exercise" method="POST" class="d-inline">
+                                        <input type="hidden" name="page" value="exercises/delete-exercise">
+                                        <input class="exercise_id" type="hidden" name="exercise_id" value="<?= htmlspecialchars($exercise->exercise_id) ?>">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-exercise-id="<?= htmlspecialchars($exercise->exercise_id) ?>">
+                                        <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
-                            </form>
-                        <?php endif; ?>
+                            <?php endif; ?>
+                            <!-- Icône de favori -->
+                            <div class="col-auto ms-auto">
+                                <img
+                                    id="favoriteIcon"
+                                    class="heart"
+                                    src="/public/assets/img/<?= $exercise->is_favorite ? "heart" : "heart_empty"?>.png"
+                                    alt="Coeur vide">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,4 +92,24 @@
     </div>
 
 </div>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmation de suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer cet exercice ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php $main = ob_get_clean(); ?>
