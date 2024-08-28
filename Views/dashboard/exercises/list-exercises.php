@@ -65,17 +65,17 @@
                         <h6 class="card-subtitle text-muted"><?= htmlspecialchars($exercise->body_part) ?></h6>
                         <div class="row justify-content-between data-fetch-js py-1">
                             <!-- Formulaire de suppression d'exercice -->
-                            <?php if ($user->role == 1) : ?>
-                                <div class="col">
-                                    <form action="?page=exercises/delete-exercise" method="POST" class="d-inline">
-                                        <input type="hidden" name="page" value="exercises/delete-exercise">
-                                        <input class="exercise_id" type="hidden" name="exercise_id" value="<?= htmlspecialchars($exercise->exercise_id) ?>">
+                            <div class="col">
+                                <form action="?page=exercises/delete-exercise" method="POST" class="d-inline">
+                                    <input type="hidden" name="page" value="exercises/delete-exercise">
+                                    <input class="exercise_id" type="hidden" name="exercise_id" value="<?= htmlspecialchars($exercise->exercise_id) ?>">
+                                    <?php if ($user->role == 1) : ?>
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-exercise-id="<?= htmlspecialchars($exercise->exercise_id) ?>">
                                         <i class="fas fa-trash"></i>
                                         </button>
+                                        <?php endif; ?>
                                     </form>
                                 </div>
-                            <?php endif; ?>
                             <!-- Icône de favori -->
                             <div class="col-auto ms-auto">
                                 <img
