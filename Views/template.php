@@ -38,14 +38,14 @@
                             </li>
                         <?php } else { ?>
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="http://localhost:8001/?page=users/signin">Exercices</a>
+                                <a class="nav-link" aria-current="page" href="?page=users/signin">Exercices</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="http://localhost:8001/?page=users/signin">Programmes</a>
+                                <a class="nav-link" href="?page=users/signin">Programmes</a>
                             </li>
                         <?php } ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:8001/?page=articles/list-articles">Articles</a>
+                            <a class="nav-link" href="?page=articles/list-articles">Articles</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="?page=showCase/presentation">Présentation</a>
