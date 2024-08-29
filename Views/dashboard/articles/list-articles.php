@@ -38,7 +38,7 @@
             </form>
         </div>
 
-        <?php if ($user->role == 1) : ?>
+        <?php if ($user && $user->role == 1) : ?>
         <!-- Bouton d'ajout d'article -->
         <div class="col-md-4 text-end">
             <div class="my-3">

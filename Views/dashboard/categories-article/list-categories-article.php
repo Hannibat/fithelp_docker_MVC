@@ -6,7 +6,8 @@
     <div id="nameHelp" class="form-text text-danger fs-5"><?= $error['update'] ?? '' ?></div>
     <div id="nameHelp" class="form-text text-success fs-5"><?= $success['update'] ?? '' ?></div>
     <a href="?page=categories-article/add-category-article" class="call-action text-white btn bg-blueElec my-3">+ Créer une nouvelle catégorie</a>
-    <table class="table">
+    <div class="">
+    <table class="table-responsive">
         <thead>
             <tr>
                 <th scope="col">Identifiant</th>
@@ -37,5 +38,6 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
 </div>
 <?php $main = ob_get_clean(); ?>

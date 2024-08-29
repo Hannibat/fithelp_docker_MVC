@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <!-- Logo -->
-                <a href="http://localhost:8001" class="navbar-brand">
+                <a href="?page=" class="navbar-brand">
                     <img src="/public/assets/img/logo/FIT.HELP-name.png" alt="logo" class="logo_desktop" width="170" height="50">
                 </a>
 

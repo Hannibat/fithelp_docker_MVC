@@ -11,7 +11,7 @@
                         </p>
                     </div>
                     <div class="col-11 d-flex justify-content-end mb-2 me-5">
-                    <a href="http://localhost:8001/?page=exercises/list-exercises" class="btn btn-action">LES EXERCICES</a>
+                    <a href="?page=exercises/list-exercises" class="btn btn-action">LES EXERCICES</a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">EXERCICES <br> MUSCULATION</h5>
                     <p class="card-text">L’exécution des exercices est importante pour la progression et éviter les blessures.</p>
-                    <a href="http://localhost:8001/?page=exercises/list-exercises" class="btn btn-action">VOIR LES EXERCICES</a>
+                    <a href="?page=exercises/list-exercises" class="btn btn-action">VOIR LES EXERCICES</a>
                 </div>
             </div>
             <div class="card col-6 m-2" style="width: 18rem;">
@@ -61,7 +61,7 @@
                     </span>
                 </div>
                 <div class="col-12 d-flex justify-content-end my-3">
-                    <a href="http://localhost:8001/?page=showCase/presentation" class="me-3 text-white">Lire la suite...</a>
+                    <a href="?page=showCase/presentation" class="me-3 text-white">Lire la suite...</a>
                 </div>
             </div>
         </div>

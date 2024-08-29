@@ -36,6 +36,7 @@
         </footer>
     </article>
     <!-- Actions pour les administrateurs ou rédacteurs -->
+    <?php if ($user) : ?>
     <?php if ($user->role == 1) : ?>
         <div class="d-flex justify-content-around mt-4">
             <a href="?page=articles/update-article&article_id=<?= $article->article_id ?>" class="btn btn-warning">Modifier</a>
@@ -47,6 +48,8 @@
             </form>
         </div>
     <?php endif; ?>
+    <?php endif; ?>
+
     </div>
 </div>
 

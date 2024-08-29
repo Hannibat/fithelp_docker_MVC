@@ -1,7 +1,7 @@
 <?php
 
 $categories_articles = CategoryArticle::getAllCategoriesArticles();
-$user = $_SESSION['user'];
+$user = $_SESSION['user'] ?? '';
 $article_id = isset($_GET['article_id']) ? (int)$_GET['article_id'] : null;
 
 if (is_null($article_id)) {
@@ -21,6 +21,6 @@ try {
     exit();
 }
 
-renderView('showcase/users/detail-article', compact('article', 'categories_articles','user'));
+renderView('showCase/users/detail-article', compact('article', 'categories_articles','user'));
 
 ?>
